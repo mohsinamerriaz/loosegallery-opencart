@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+  <name>Blankt</name>
+  <code>blankt</code>
+  <version>1.0.0</version>
+  <author>Mohsin Amer Riaz</author>
+  <link>https://mohsin.one</link>
+  <file path="catalog/view/theme/*/template/common/header.tpl">
+    <operation>
+      <search>
+        <![CDATA[<body]]>
+      </search>
+      <add position="after" offset="1">
+        <![CDATA[<span id="blankt-cart-messages" data-title="<?php echo $blankt_cart_title; ?>" data-text="<?php echo $blankt_cart_text; ?>"><span>]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="catalog/controller/common/header.php">
+    <operation>
+      <search>
+        <![CDATA[$data['language'] = $this->load->controller('common/language')]]>
+      </search>
+      <add position="before">
+        <![CDATA[
+          $this->load->language('product/blankt_button');
+          $data['blankt_cart_title'] = $this->language->get('blankt_cart_title');
+          $data['blankt_cart_text'] = $this->language->get('blankt_cart_text');
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="catalog/view/theme/*/template/checkout/cart.tpl">
+    <operation>
+      <search>
+        <![CDATA[<?php echo $footer; ?>]]>
+      </search>
+      <add position="before">
+        <![CDATA[
+          <div data-text_select_required_fields="<?php echo $text_select_required_fields; ?>" id="blankt_temp_terms_and_conditions" style="display: none !important; width: 0; height: 0: visibility: none">
+            <?php echo $blankt_terms_and_condtions; ?>
+          </div>
+          <!-- Modal -->
+          <div class="modal fade" id="myBlanktImage" tabindex="-1" role="dialog" aria-labelledby="myBlanktImageLabel">
+            <div class="modal-dialog" role="document">
+                <img />
+              </div>
+            </div>
+          </div>
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[<td class="text-right"><?php echo $column_total; ?></td>]]>
+      </search>
+      <add position="after">
+        <![CDATA[
+          <td class="text-center"><?php /* echo $column_actions; */ ?></td>
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[<td class="text-right"><?php echo $product['total']; ?></td>]]>
+      </search>
+      <add position="after" offset="1">
+        <![CDATA[
+          <?php if (!empty($is_mobile)) { ?>
+            <tr>
+              <td class="text-left" colspan="6">
+                <?php if(!empty($product['blankt_product_serial'])) { ?><button type="button" class="btn blankt_bg_green button_blankt_edit_option_url" data-cart_key="<?php echo $product['key']; ?>" data-blankt_product_serial="<?php echo $product['blankt_product_serial']; ?>"><?php echo $button_edit_your_design_option; ?><?php } ?></button>
+                <?php if(!empty($product['blankt_product_serial'])) { ?><button type="button" class="btn blankt_bg_blue button_blankt_edit_url" data-cart_key="<?php echo $product['key']; ?>" data-blankt_product_serial="<?php echo $product['blankt_product_serial']; ?>"><?php echo $button_edit_your_design; ?><?php } ?></button>
+              </td>
+            </tr>
+          <?php } ?>
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[<td class="text-right"><?php echo $product['total']; ?></td>]]>
+      </search>
+      <add position="after">
+        <![CDATA[
+           <?php if (empty($is_mobile)) { ?>
+            <td class="text-center">
+              <?php if(!empty($product['blankt_product_serial'])) { ?><button type="button" class="btn blankt_bg_green button_blankt_edit_option_url" data-cart_key="<?php echo $product['key']; ?>" data-blankt_product_serial="<?php echo $product['blankt_product_serial']; ?>"><?php echo $button_edit_your_design_option; ?><?php } ?></button>
+              <?php if(!empty($product['blankt_product_serial'])) { ?><button type="button" class="btn blankt_bg_blue button_blankt_edit_url" data-cart_key="<?php echo $product['key']; ?>" data-blankt_product_serial="<?php echo $product['blankt_product_serial']; ?>"><?php echo $button_edit_your_design; ?><?php } ?></button>
+            </td>
+          <?php } ?>
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[<?php echo $product['href']; ?>"><img]]>
+      </search>
+      <add position="replace">
+        <![CDATA[<?php echo $product['href']; ?>" data-src="<?php echo (!empty($product['blankt_original_image_url']) ? $product['blankt_original_image_url'] : ''); ?>" data-has_blankt_image="<?php echo (!empty($product['blankt_image_url']) ? 1 : 0); ?>"><img]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[<a href="<?php echo $checkout; ?>"]]>
+      </search>
+      <add position="replace">
+        <![CDATA[<a href="<?php echo $checkout; ?>" id="blankt-checkout" ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[<div class="buttons">]]>
+      </search>
+      <add position="before">
+        <![CDATA[
+        <?php if (!empty($hasMoreThanOneBlanktProduct)) { ?>
+          <div class="text-right" style="margin-bottom: 10px">
+            <input type="checkbox" id="blankt_copyright_notice" style="vertical-align: top" /> <?php echo $blankt_copyright_notice; ?>
+          </div>
+        <?php } ?>
+      ]]>
+      </add>
+    </operation>
+  </file>
+  <file path="catalog/view/theme/*/template/product/product.tpl">
+    <operation>
+      <search>
+        <![CDATA[id="button-cart"]]>
+      </search>
+      <add position="replace">
+        <![CDATA[id="button-cart" <?php if(!empty($blankt_product_status)) { ?>style="display: none"<?php } ?>]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[id="button-cart"]]>
+      </search>
+      <add position="after">
+        <![CDATA[
+          <?php if(!empty($button_blankt_designer_add_to_cart_below)) { ?>
+          <div style="margin-top: 10px"><?php echo $button_blankt_designer_add_to_cart_below; ?></div>
+          <?php } ?>
+          <?php echo !empty($blankt_designer_html) ? $blankt_designer_html : ''; ?>
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[<?php if ($option['type'] == 'text') { ?>]]>
+      </search>
+      <add position="replace">
+        <![CDATA[
+            <?php if ($option['type'] == 'text' && $option['option_id'] == $blank_product_option_id && !$option['required']) { ?>
+              <input type="hidden" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option['value']; ?>" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control" />
+            <?php } elseif ($option['type'] == 'text') { ?>
+        ]]>
+      </add>
+    </operation>
+    <operation error="skip">
+      <search>
+        <![CDATA[<?php if ($option['type'] == 'select') { ?>]]>
+      </search>
+      <add position="after" offset="15">
+        <![CDATA[
+            <?php echo empty($blankt_add_product_option_html) ? '' : $blankt_add_product_option_html;  ?>
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[<?php if ($option['type'] == 'select') { ?>]]>
+      </search>
+      <add position="replace">
+        <![CDATA[
+            <?php if($option['type'] == 'select' && !empty($blankt_product_status)) { ?>
+            <?php } elseif ($option['type'] == 'select') { ?>
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[xxxxx<select name="option]]>
+      </search>
+      <add position="replace">
+        <![CDATA[
+            <select <?php if(!empty($blankt_product_status)) { ?>disabled="disabled"<?php } ?> name="option
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="catalog/controller/product/product.php">
+    <operation>
+      <search>
+        <![CDATA[$data['options'][] = array(]]>
+      </search>
+      <add position="before">
+        <![CDATA[
+          $this->load->controller('product/blankt_button/productProductPage', ['data' => &$data]);
+          if($data['blank_product_option_id'] == $option['option_id']) {
+            $option['value'] = $data['productSerial'];
+          }
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[xxxxxx$this->response->setOutput($this->load->view('default/template/product/product.tpl']]>
+      </search>
+      <add position="before" offset="5">
+        <![CDATA[
+          $this->load->controller('product/blankt_button/productProductPage', ['data' => &$data]);
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="catalog/controller/common/footer.php">
+    <operation>
+      <search>
+        <![CDATA[$data['informations'] = array()]]>
+      </search>
+      <add position="before">
+        <![CDATA[
+          $this->document->addScript('catalog/view/javascript/ces/blankt_products.js');
+          $this->document->addScript('catalog/view/javascript/ces/sweetalert.min.js');
+          $this->document->addScript('catalog/view/javascript/ces/blankt.js?ser=' . strtotime('now'));
+          $this->document->addStyle('catalog/view/theme/default/stylesheet/ces/blankt.css');
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="catalog/controller/checkout/checkout.php">
+    <operation>
+      <search>
+        <![CDATA[$products = $this->cart->getProducts();]]>
+      </search>
+      <add position="before">
+        <![CDATA[
+          $this->load->controller('product/blankt_button/checkoutCheckoutPage', ['products' => &$products]);
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="catalog/controller/checkout/cart.php">
+    <operation>
+      <search>
+        <![CDATA[if ($this->cart->hasProducts()]]>
+      </search>
+      <add position="before">
+        <![CDATA[
+          $this->load->controller('product/blankt_button/checkoutCartPage', ['data' => &$data]);
+          $this->load->controller('product/blankt_button/redirectToProductPage');
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[if ($product['image']) {]]>
+      </search>
+      <add position="before">
+        <![CDATA[
+          $image_array = $this->load->controller('product/blankt_button/getImageFromSession', $product);
+          $image = $image_array['small'];
+          $original_image = $image_array['original'];
+          if(!$image)
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[if (!$json) {]]>
+      </search>
+      <add position="before">
+        <![CDATA[
+          if($this->config->get('blankt_status') && !empty($this->request->get['product_id']) && in_array((int) $this->request->get['product_id'], $this->config->get('blankt_product_ids'))) {
+            $json['error']['warning'] = 'Blankt';
+          }
+
+          $this->load->controller('product/blankt_button/removeFromCartFromCartPage', ['json' => &$json, 'option' => $option, 'recurring_id' => $recurring_id]);
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[$this->cart->add($this->request->post['product_id']]]>
+      </search>
+      <add position="after">
+        <![CDATA[
+          $this->load->controller('product/blankt_button/addToCartFromCartPage', ['json' => &$json, 'option' => $option, 'recurring_id' => $recurring_id]);
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[$data['products'][] = array(]]>
+      </search>
+      <add position="replace">
+        <![CDATA[
+          $blankt_edit_url = '';
+          $blankt_product_serial = '';
+
+          if($this->config->get('blankt_status')) {
+            foreach ($product['option'] as $option) {
+              $blank_product_option_id = $this->config->get('blankt_product_option_id') ? $this->config->get('blankt_product_option_id') : false;
+
+              if($option['option_id'] == $blank_product_option_id && $option['value']) {
+                $blankt_edit_url = $this->config->get('blankt_website_to_blankt_redirect_url') . '&p=' . $option['value'];
+                $blankt_product_serial = $option['value'];
+                break;
+              }
+            }
+          }
+
+          if ($blankt_product_serial) {
+            $data['hasMoreThanOneBlanktProduct'] = true;
+          }
+
+          $data['products'][] = array(
+            'blankt_edit_url'       => $blankt_edit_url,
+            'blankt_product_serial' => $blankt_product_serial,
+            'blankt_image_url'       => $blankt_product_serial ? $image : '',
+            'blankt_original_image_url' => $blankt_product_serial ? $original_image : '',
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA['value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value)]]>
+      </search>
+      <add position="replace">
+        <![CDATA[
+          'value' => (utf8_strlen($value) > 22 ? utf8_substr($value, 0, 22) . '..' : $value)
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[if (isset($this->request->post['quantity'])) {]]>
+      </search>
+      <add position="before">
+        <![CDATA[
+          $this->load->controller('product/blankt_button/setupCartAddPagePostValues', []);
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[class ControllerCheckoutCart]]>
+      </search>
+      <add position="after">
+        <![CDATA[
+          public function removeAllBlankt() {
+            $this->load->language('checkout/cart');
+
+            $json = array();
+
+            $this->load->controller('product/blankt_button/removeAllBlanktSerialProductFromCart', []);
+
+            $this->response->addHeader('Content-Type: application/json');
+            $this->response->setOutput(json_encode($json));
+          }
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file
+    path="catalog/controller/{account/wishlist.php,module/bestseller.php,module/featured.php,module/latest.php,module/special.php,product/category.php,product/compare.php,product/manufacturer.php,product/product.php,product/search.php,product/special.php}">
+    <operation>
+      <search>
+        <![CDATA[$data['button_cart'] = $this->language->get('button_cart');]]>
+      </search>
+      <add position="after">
+        <![CDATA[
+          $this->load->language('product/blankt_button');
+          if($this->config->get('blankt_status') && !empty($this->request->get['product_id']) && in_array((int) $this->request->get['product_id'], $this->config->get('blankt_product_ids'))) {
+            $data['button_cart'] = $this->language->get('button_blankt_designer');
+          }
+          $data['button_blankt_designer'] = $this->language->get('button_blankt_designer');
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search>
+        <![CDATA[if ($product['image']) {]]>
+      </search>
+      <add position="after">
+        <![CDATA[
+          $image_array = $this->load->controller('product/blankt_button/getImageFromSession', $product);
+          $image = $image_array['small'];
+          $original_image = $image_array['original'];
+          if(!$image)
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+
+  <file path="catalog/model/catalog/product.php">
+    <operation>
+      <search>
+      <![CDATA['product_id'       => $query->row['product_id'],]]>
+      </search>
+      <add position="after">
+      <![CDATA[
+        'blankt_product_text'         => $this->load->language('product/blankt_button')['button_blankt_designer'],
+        'blankt_product_status'       => $this->config->get('blankt_status') && in_array((int) $query->row['product_id'], $this->config->get('blankt_product_ids')) ? 1 : 0,
+      ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="catalog/controller/product/{category,compare,manufacturer,product,search,special}.php">
+    <operation>
+      <search>
+      <![CDATA['product_id'  => $result['product_id'],]]>
+    </search>
+      <add position="after">
+      <![CDATA[
+        'blankt_product_text'         => isset($product_info['blankt_product_text']) ? $product_info['blankt_product_text'] : (isset($result['blankt_product_text']) ? $result['blankt_product_text'] : ($this->load->language('product/blankt_button')['button_blankt_designer'])),
+        'blankt_product_status'       => isset($product_info['blankt_product_status']) ? $product_info['blankt_product_status'] : (isset($result['blankt_product_status']) ? $result['blankt_product_status'] : ($this->config->get('blankt_status') && isset($result['product_id']) && in_array((int) $result['product_id'], $this->config->get('blankt_product_ids')) ? 1 : 0)),
+      ]]>
+    </add>
+    </operation>
+  </file>
+  <file
+    path="catalog/view/theme/*/template/product/{category,compare,manufacturer_info,product,review,search,special}.tpl">
+    <operation error="skip">
+      <search>
+        <![CDATA[<?php echo $button_cart; ?>]]>
+      </search>
+      <add position="replace">
+        <![CDATA[
+        <?php echo (empty($product['blankt_product_status']) ? $button_cart : $product['blankt_product_text']); ?>
+        ]]>
+      </add>
+    </operation>
+    <operation error="skip">
+      <search>
+        <![CDATA[zzzzzzzz<div class="button-group">]]>
+      </search>
+      <add position="after" offset="4">
+        <![CDATA[
+        <?php if (!empty($product['blankt_product_status']) && !empty($product['blankt_product_text'])) { ?>
+            <div class="button-group button-group-additional">
+                <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>');" class="btn btn-primary btn-block button-blankt-product"><?php echo $product['blankt_product_text']; ?></button>
+            </div>
+        <?php } ?>
+        ]]>
+      </add>
+    </operation>
+  </file>
+  <file path="catalog/controller/module/{bestseller,featured,latest,special}.php">
+    <operation>
+      <search>
+      <![CDATA['thumb'       => $image,]]>
+    </search>
+      <add position="before">
+      <![CDATA[
+        'blankt_product_text'         => isset($product_info['blankt_product_text']) ? $product_info['blankt_product_text'] : (isset($result['blankt_product_text']) ? $result['blankt_product_text'] : ($this->load->language('product/blankt_button')['button_blankt_designer'])),
+        'blankt_product_status'       => isset($product_info['blankt_product_status']) ? $product_info['blankt_product_status'] : (isset($result['blankt_product_status']) ? $result['blankt_product_status'] : ($this->config->get('blankt_status') && isset($result['product_id']) && in_array((int) $result['product_id'], $this->config->get('blankt_product_ids')) ? 1 : 0)),
+      ]]>
+    </add>
+    </operation>
+  </file>
+  <file path="catalog/view/theme/*/template/module/{bestseller,featured,latest,special}.tpl">
+    <operation>
+      <search>
+        <![CDATA[<?php echo $button_cart; ?>]]>
+      </search>
+      <add position="replace">
+        <![CDATA[
+        <?php echo (empty($product['blankt_product_status']) ? $button_cart : $product['blankt_product_text']); ?>
+        ]]>
+      </add>
+    </operation>
+    <operation error="skip">
+      <search>
+        <![CDATA[zzzzzzzz<div class="button-group">]]>
+      </search>
+      <add position="after" offset="4">
+        <![CDATA[
+        <?php if (!empty($product['blankt_product_status']) && !empty($product['blankt_product_text'])) { ?>
+            <div class="button-group button-group-additional">
+                <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>');" class="btn btn-primary btn-block button-blankt-product"><?php echo $product['blankt_product_text']; ?></button>
+            </div>
+        <?php } ?>
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+</modification>

@@ -1,0 +1,75 @@
+img[src*="catalog/blankt/logo.png"] {
+    background-color: #000;
+}
+
+.swal-modal.blankt_temp_terms_and_conditions_modal {
+    text-align: left;
+}
+
+.c-pointer {
+    cursor: pointer;
+}
+
+.blankt_terms_and_condtions.c-pointer {
+    text-decoration: underline;
+}
+
+.blankt_bg_green {
+    background-color: #42cf00;
+}
+
+#button-blankt, #button-blankt:active, #button-blankt:hover {
+    background-color: #42cf00 !important;
+    border-color: #42cf00 !important; 
+    box-shadow: none;
+}
+
+.blankt_bg_blue {
+    background-color: #00A8EC;
+}
+
+.blankt_product_modal_main {
+    padding-top: 20px;
+}
+
+.blankt_modal_close_icon {
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    border: 1px solid lightgrey;
+}
+
+/*	
+.button_blankt_edit_option_url {
+    margin-bottom: 7px;
+}
+*/
+.button_blankt_edit_option_url,
+.button_blankt_edit_url {
+    color: #fff;
+    width: 102px;
+    padding: 6px 8px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.checkout-cart table td small {
+    white-space: nowrap;
+}
+
+.blankt_product_modal_main .btn-success:hover,
+.blankt_product_modal_main .btn-success:focus,
+.blankt_product_modal_main .btn-success:active,
+.blankt_product_modal_main .btn-success.active,
+.blankt_product_modal_main .open .dropdown-toggle.btn-success {
+    background-color: #47a447 !important;
+    border-color: #398439 !important;
+}
+
+#table-blankt_custom_option {
+    margin-top: 5px;
+}
