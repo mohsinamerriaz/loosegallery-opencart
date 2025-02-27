@@ -1,1 +1,1 @@
-window.blankt_products = ["212"]
+window.blankt_products = ["28"]

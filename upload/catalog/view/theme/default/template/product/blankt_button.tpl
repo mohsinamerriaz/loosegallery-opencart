@@ -1,4 +1,4 @@
-<button type="button" id="button-blankt" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-lg btn-block"><?php echo $button_blankt_designer; ?></button>
+<button type="button" id="button-blankt" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-success add-to-bag"><?php echo $button_blankt_designer; ?></button>
 
 <script type="text/javascript"><!--
 $(document).ready(function () {
@@ -8,12 +8,6 @@ $(document).ready(function () {
 	}
 })
 $('#button-blankt').on('click', function() {
-
-	if($('[name="productSerial"]').length) {
-		$('[name="productSerial"]').remove()
-	}
-	$('#product').append('<input type="hidden" name="productSerial" value="' + getURLVar('productSerial') + '" />');
-
 	$.ajax({
 		url: 'index.php?route=product/blankt_button/add',
 		type: 'post',
@@ -56,5 +50,5 @@ $('#button-blankt').on('click', function() {
 			}
 		}
 	});
-});
+})
 //--></script>

@@ -10,7 +10,7 @@ $_['button_edit_your_design_option'] = 'Size / Format';
 $_['button_blankt_add_product_option'] = 'Add More';
 $_['blankt_cart_title'] = 'Are you sure?';
 $_['blankt_copyright_notice'] = 'I agree to the Copyright <a class="blankt_terms_and_condtions c-pointer">Terms & Conditions</a>';
-$_['blankt_cart_text'] = 'Warning: Your design will be inaccessible if removed from the cart. For assistance, contact us at clare@highlife-dubai.com.';
+$_['blankt_cart_text'] = 'Warning: Your design will be inaccessible if removed from the cart.';
 $_['text_update_button_cart'] = 'Update Cart';
 $_['text_cancel'] = 'Cancel';
 $_['text_select_required_fields'] = 'Please select required fields';

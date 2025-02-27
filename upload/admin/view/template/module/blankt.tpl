@@ -106,7 +106,7 @@
   $(document).ready(function () {
     $('#input-blankt_terms_and_condtions').summernote({height: 300});
   })
-  // Related
+  // Products
   $('input[name=\'product_ids\']').autocomplete({
     'source': function(request, response) {
       $.ajax({

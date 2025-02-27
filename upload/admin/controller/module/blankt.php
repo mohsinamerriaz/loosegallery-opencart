@@ -11,9 +11,9 @@ class ControllerModuleBlankt extends Controller {
 		'terms_and_condtions',
 	);
 	private $status = false;
-	private $blankt_to_website_redirect_url = 'https://www.highlife-dubai.com/index.php?route=checkout/cart';
-	private $website_to_blankt_redirect_url = 'https://blankt.com/editor/?dom=NkGCm50dc';
-	private $api_key = 'NkGCm50dcNlxju0Jy45ZmZS36zwKC3vy';
+	private $blankt_to_website_redirect_url = '';
+	private $website_to_blankt_redirect_url = '';
+	private $api_key = '';
 	private $product_option_id = '';
 	private $product_ids = '[]';
 	private $terms_and_condtions = '';
@@ -98,8 +98,6 @@ class ControllerModuleBlankt extends Controller {
 	}
 
 	public function index() {
-		// $this->uninstallTables();
-		// $this->installTables();
 
 		$this->load->language('module/blankt');
 
@@ -109,9 +107,6 @@ class ControllerModuleBlankt extends Controller {
 		$this->load->model('catalog/product');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			// echo '<pre>';
-			// print_r($this->config->get('blankt_product_ids'));
-			// echo '</pre>';
 			file_put_contents(DIR_APPLICATION . '../catalog/view/javascript/ces/blankt_products.js', 'window.blankt_products = ' . json_encode($this->config->get('blankt_product_ids'), true));
 
 			$this->request->post['blankt_product_option_id'] = $this->addProductOption();
@@ -181,10 +176,6 @@ class ControllerModuleBlankt extends Controller {
 			}
 		}
 
-		// echo '<pre>';
-		// print_r($this->config->get('blankt_product_ids'));
-		// echo '</pre>';
-
 		if (isset($this->request->post['blankt_product_ids'])) {
 			$product_product_ids = $this->request->post['blankt_product_ids'];
 		} elseif (!empty($this->config->get('blankt_product_ids'))) {
@@ -192,17 +183,23 @@ class ControllerModuleBlankt extends Controller {
 		} else {
 			$product_product_ids = array();
 		}
-
+		
+		if (gettype($product_product_ids) == 'string' && $product_product_ids == '[]') {
+			$product_product_ids = [];
+		}
 		$data['product_product_ids'] = array();
 
-		foreach ($product_product_ids as $product_id) {
-			$product_info = $this->model_catalog_product->getProduct($product_id);
-
-			if ($product_info) {
-				$data['product_product_ids'][] = array(
-					'product_id' => $product_info['product_id'],
-					'name'       => $product_info['name']
-				);
+		if (!empty($product_product_ids)) {
+			
+			foreach ($product_product_ids as $product_id) {
+				$product_info = $this->model_catalog_product->getProduct($product_id);
+	
+				if ($product_info) {
+					$data['product_product_ids'][] = array(
+						'product_id' => $product_info['product_id'],
+						'name'       => $product_info['name']
+					);
+				}
 			}
 		}
 

@@ -2,9 +2,9 @@
 <modification>
   <name>Blankt</name>
   <code>blankt</code>
-  <version>1.0.0</version>
-  <author>Mohsin Amer Riaz</author>
-  <link>https://mohsin.one</link>
+  <version>1.0.1</version>
+  <author>SoftwareBiz</author>
+  <link>https://softwarebiz.co</link>
   <file path="catalog/view/theme/*/template/common/header.tpl">
     <operation>
       <search>
@@ -291,6 +291,7 @@
       </search>
       <add position="after">
         <![CDATA[
+          $this->load->controller('product/blankt_button/removeFromCartFromCartPage', ['json' => &$json, 'option' => $option, 'recurring_id' => $recurring_id]);
           $this->load->controller('product/blankt_button/addToCartFromCartPage', ['json' => &$json, 'option' => $option, 'recurring_id' => $recurring_id]);
         ]]>
       </add>
