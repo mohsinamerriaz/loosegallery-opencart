@@ -3,7 +3,7 @@
 $_['button_blankt_designer'] = 'Start my Poster Design';
 $_['button_blankt_designer_add_to_cart'] = 'Save Poster Design in my Cart';
 $_['button_blankt_designer_add_to_cart_below'] = 'You can buy, edit or delete your poster from your cart later';
-$_['redirecting_to_blankt'] = 'Redirecting to Blankt...';
+$_['redirecting_to_blankt'] = 'Redirecting to LooseGallery...';
 $_['column_actions'] = 'Actions';
 $_['button_edit_your_design'] = 'Edit Design';
 $_['button_edit_your_design_option'] = 'Size / Format';
