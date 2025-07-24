@@ -19,7 +19,7 @@ LooseGallery is a creative platform where everyday people can become artists, pe
 4. Navigate to **Extensions → Modifications** and click the **Refresh** button to update the cache.
 5. Go to **Extensions → Modules**, find **LooseGallery**, and click **Edit**.
 6. Enter the following configuration values:
-   - **API Key** – Sign up with LooseGallery and contact the tech team to get your unique key.
+   - **API Key** – Sign up with LooseGallery and contact the Technical Support at tech@loosegallery.com to get your unique key.
    - **LooseGallery to Website Redirect URL** – Enter your cart’s address (e.g., `https://yourstore.com/cart`).
    - **Website to LooseGallery Redirect URL** – Enter the editor URL with your specific Editor ID:
      ```
