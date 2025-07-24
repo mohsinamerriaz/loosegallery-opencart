@@ -11,6 +11,23 @@
 
 LooseGallery is a creative platform where everyday people can become artists, personalize their art, and express themselves without limits; it also serves as a respectful space for passionate artists to showcase their work and a marketplace that connects creators with art enthusiasts and consumers.
 
-## Installation and Setup
+## Installation & Setup
 
-LooseGallery is a full-stack platform for art creation, personalization, and commerce. It features a React frontend, AWS Amplify backend (AppSync, Cognito, Lambda), and Shopify integration for e-commerce. The platform supports creators and consumers, offering a marketplace, editor, and API-driven integrations.
+1. Clone this repository and rename the downloaded file to `loosegallery.ocmod.zip`.
+2. Log in to your OpenCart admin panel.
+3. Go to **Extensions → Extension Installer** and upload the `loosegallery.ocmod.zip` file.
+4. Navigate to **Extensions → Modifications** and click the **Refresh** button to update the cache.
+5. Go to **Extensions → Modules**, find **LooseGallery**, and click **Edit**.
+6. Enter the following configuration values:
+   - **API Key** – Sign up with LooseGallery and contact the tech team to get your unique key.
+   - **LooseGallery to Website Redirect URL** – Enter your cart’s address (e.g., `https://yourstore.com/cart`).
+   - **Website to LooseGallery Redirect URL** – Enter the editor URL with your specific Editor ID:
+     ```
+     https://editor.loosegallery.com/editor/?dom=YOUR_EDITOR_ID
+     ```
+   - **Product** – Select the OpenCart product you want to connect to the editor.
+   - **LooseGallery Terms and Conditions** – Add the legal notice or terms to show at checkout (e.g., copyright notice for templates). This will appear with a mandatory checkbox.
+
+7. Click **Save** to apply the settings.
+
+---
