@@ -13,7 +13,7 @@ LooseGallery is a creative platform where everyday people can become artists, pe
 
 ## Installation & Setup
 
-1. Clone this repository and rename the downloaded file to `loosegallery.ocmod.zip`.
+1. Clone this repository and extract the contents, ZIP the contents of the folder to `loosegallery.ocmod.zip`.
 2. Log in to your OpenCart admin panel.
 3. Go to **Extensions → Extension Installer** and upload the `loosegallery.ocmod.zip` file.
 4. Navigate to **Extensions → Modifications** and click the **Refresh** button to update the cache.
