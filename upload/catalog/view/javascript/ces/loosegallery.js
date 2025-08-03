@@ -1,28 +1,28 @@
 $(document).ready(function () {
 	const old_func = cart.add
 	cart.add = function (product_id, quantity) {
-		console.log('Blankt: Extending cart.add')
-		if (window.blankt_products.includes(String(product_id))) {
-			return blanktAdd(product_id, quantity)
+		console.log('loosegallery: Extending cart.add')
+		if (window.loosegallery_products.includes(String(product_id))) {
+			return loosegalleryAdd(product_id, quantity)
 		}
 		return old_func(product_id, quantity)
 	}
 
 	const old_func_remove = cart.remove
 	cart.remove = function (cart_key) {
-		console.log('Blankt: Extending cart.remove')
-		const blankt_product_serial = $('[name="quantity[' + cart_key + ']"]').parent().parent().parent().find('[data-blankt_product_serial]').data('blankt_product_serial')
-		if (blankt_product_serial) {
+		console.log('loosegallery: Extending cart.remove')
+		const loosegallery_product_serial = $('[name="quantity[' + cart_key + ']"]').parent().parent().parent().find('[data-loosegallery_product_serial]').data('loosegallery_product_serial')
+		if (loosegallery_product_serial) {
 			swal({
-				title: $('#blankt-cart-messages').data('title'),
-				text: $('#blankt-cart-messages').data('text'),
+				title: $('#loosegallery-cart-messages').data('title'),
+				text: $('#loosegallery-cart-messages').data('text'),
 				icon: "warning",
 				buttons: true,
 				dangerMode: true,
 			})
 				.then((willDelete) => {
 					if (willDelete) {
-						blanktDelete(blankt_product_serial, cart_key)
+						loosegalleryDelete(loosegallery_product_serial, cart_key)
 					}
 				});
 		} else {
@@ -30,17 +30,17 @@ $(document).ready(function () {
 		}
 	}
 
-	$(document).on('click', '.button_blankt_edit_url', function () {
+	$(document).on('click', '.button_loosegallery_edit_url', function () {
 		const cart_key = $(this).data('cart_key')
-		const blankt_product_serial = $(this).data('blankt_product_serial')
+		const loosegallery_product_serial = $(this).data('loosegallery_product_serial')
 
-		blanktEdit(cart_key, blankt_product_serial)
+		loosegalleryEdit(cart_key, loosegallery_product_serial)
 	})
 
-	$(document).on('click', '.blankt_terms_and_condtions', function () {
-		const html = $('#blankt_temp_terms_and_conditions').html()
+	$(document).on('click', '.loosegallery_terms_and_condtions', function () {
+		const html = $('#loosegallery_temp_terms_and_conditions').html()
 		swal({
-			className: 'blankt_temp_terms_and_conditions_modal',
+			className: 'loosegallery_temp_terms_and_conditions_modal',
 			content: {
 				element: 'div',
 				attributes: {
@@ -51,15 +51,15 @@ $(document).ready(function () {
 			dangerMode: false,
 		})
 			.then(() => {
-				document.querySelector('.blankt_temp_terms_and_conditions_modal').scrollIntoView('top')
+				document.querySelector('.loosegallery_temp_terms_and_conditions_modal').scrollIntoView('top')
 			});
 	})
 
-	function blanktDelete(blankt_product_serial, cart_key, is_update_cart_page = false) {
+	function loosegalleryDelete(loosegallery_product_serial, cart_key, is_update_cart_page = false) {
 		$.ajax({
-			url: 'index.php?route=product/blankt_button/delete',
+			url: 'index.php?route=product/loosegallery_button/delete',
 			type: 'post',
-			data: 'blankt_product_serial=' + blankt_product_serial,
+			data: 'loosegallery_product_serial=' + loosegallery_product_serial,
 			dataType: 'json',
 			beforeSend: function () {
 				$('#cart > button').button('loading');
@@ -76,11 +76,11 @@ $(document).ready(function () {
 		});
 	}
 
-	function blanktEdit(cart_key, blankt_product_serial) {
+	function loosegalleryEdit(cart_key, loosegallery_product_serial) {
 		$.ajax({
-			url: 'index.php?route=product/blankt_button/edit',
+			url: 'index.php?route=product/loosegallery_button/edit',
 			type: 'post',
-			data: 'cart_key=' + cart_key + '&productSerial=' + blankt_product_serial + '&blankt_product_page_redirect=1',
+			data: 'cart_key=' + cart_key + '&productSerial=' + loosegallery_product_serial + '&loosegallery_product_page_redirect=1',
 			dataType: 'json',
 			beforeSend: function () {
 				$('#cart > button').button('loading');
@@ -107,11 +107,11 @@ $(document).ready(function () {
 		});
 	}
 
-	function blanktAdd(product_id, quantity) {
+	function loosegalleryAdd(product_id, quantity) {
 		$.ajax({
-			url: 'index.php?route=product/blankt_button/add',
+			url: 'index.php?route=product/loosegallery_button/add',
 			type: 'post',
-			data: 'product_id=' + product_id + '&quantity=' + (typeof (quantity) != 'undefined' ? quantity : 1) + '&blankt_product_page_redirect=1',
+			data: 'product_id=' + product_id + '&quantity=' + (typeof (quantity) != 'undefined' ? quantity : 1) + '&loosegallery_product_page_redirect=1',
 			dataType: 'json',
 			beforeSend: function () {
 				$('#cart > button').button('loading');
@@ -139,23 +139,23 @@ $(document).ready(function () {
 
 					$('#cart-total').text(parseInt($('#cart-total').text()))
 
-					blanktCopyrightNotice()
+					loosegalleryCopyrightNotice()
 				}
 			}
 		});
 	}
 
 	// cart page only
-	blanktCopyrightNotice()
+	loosegalleryCopyrightNotice()
 
-	$(document).on('click', '.button_blankt_edit_option_url', function () {
+	$(document).on('click', '.button_loosegallery_edit_option_url', function () {
 		const cart_key = $(this).data('cart_key')
-		const blankt_product_serial = $(this).data('blankt_product_serial')
-		blanktEditProductOptions(cart_key, blankt_product_serial)
+		const loosegallery_product_serial = $(this).data('loosegallery_product_serial')
+		loosegalleryEditProductOptions(cart_key, loosegallery_product_serial)
 
 		const html = ''
 		swal({
-			className: 'blankt_temp_option_modal',
+			className: 'loosegallery_temp_option_modal',
 			content: {
 				element: 'div',
 				attributes: {
@@ -167,11 +167,11 @@ $(document).ready(function () {
 		})
 	})
 
-	function blanktEditProductOptions(cart_key, blankt_product_serial) {
+	function loosegalleryEditProductOptions(cart_key, loosegallery_product_serial) {
 		$.ajax({
-			url: 'index.php?route=product/blankt_button/cartProductPageAjax',
+			url: 'index.php?route=product/loosegallery_button/cartProductPageAjax',
 			type: 'post',
-			data: 'cart_key=' + cart_key + '&productSerial=' + blankt_product_serial,
+			data: 'cart_key=' + cart_key + '&productSerial=' + loosegallery_product_serial,
 			dataType: 'json',
 			beforeSend: function () {
 				$('#cart > button').button('loading');
@@ -182,12 +182,12 @@ $(document).ready(function () {
 				$('#cart > button').button('reset');
 
 				const all_products = json.all_products
-				const html = json.blankt_cart_product_page_html + json.blankt_add_product_option_html
+				const html = json.loosegallery_cart_product_page_html + json.loosegallery_add_product_option_html
 				swal({
 					closeOnClickOutside: false,
 					closeOnEsc: false,
 					// allowOutsideClick: false,
-					className: 'blankt_temp_option_modal',
+					className: 'loosegallery_temp_option_modal',
 					content: {
 						element: 'div',
 						attributes: {
@@ -198,8 +198,8 @@ $(document).ready(function () {
 					dangerMode: false,
 				});
 
-				$('.swal-blankt-confirm-button').data('cart_key', cart_key)
-				$('.swal-blankt-confirm-button').data('blankt_product_serial', blankt_product_serial)
+				$('.swal-loosegallery-confirm-button').data('cart_key', cart_key)
+				$('.swal-loosegallery-confirm-button').data('loosegallery_product_serial', loosegallery_product_serial)
 
 				window.all_products = all_products		
 
@@ -207,31 +207,31 @@ $(document).ready(function () {
 					const quantity = all_products[i].quantity
 					let listing_index = i
 
-					$('#button-blankt-add-product-option').trigger('click')
-					listing_index = $('#table-blankt_custom_option tbody tr:last-child').data('index')
-					if ($(`[name="blankt_custom_option_quantity[${listing_index}]"]`).length) {
-						$(`[name="blankt_custom_option_quantity[${listing_index}]"]`).val(quantity)
+					$('#button-loosegallery-add-product-option').trigger('click')
+					listing_index = $('#table-loosegallery_custom_option tbody tr:last-child').data('index')
+					if ($(`[name="loosegallery_custom_option_quantity[${listing_index}]"]`).length) {
+						$(`[name="loosegallery_custom_option_quantity[${listing_index}]"]`).val(quantity)
 					}
 
 					for (let option_id in all_products[i]['options']) {
 						const option_value = all_products[i]['options'][option_id]
-						if ($(`[name="blankt_custom_option[${listing_index}][${option_id}]"]`).length) {
-							$(`[name="blankt_custom_option[${listing_index}][${option_id}]"]`).val(option_value)
+						if ($(`[name="loosegallery_custom_option[${listing_index}][${option_id}]"]`).length) {
+							$(`[name="loosegallery_custom_option[${listing_index}][${option_id}]"]`).val(option_value)
 						}
 					}
 				}
-				$('.main-blankt-options-template').hide()
+				$('.main-loosegallery-options-template').hide()
 			}
 		});
 	}
 
-	// blankt add more button function
+	// loosegallery add more button function
 	let quantityBoxId = 1
 
-	function createBlanktTemplate() {
-		const Header1 = document.querySelector('.main-blankt-options-template select').previousElementSibling.innerHTML
+	function createloosegalleryTemplate() {
+		const Header1 = document.querySelector('.main-loosegallery-options-template select').previousElementSibling.innerHTML
 		const Header2 = document.querySelector('[for="input-quantity"]').innerHTML
-		const html = `<table class="table table-bordered table-hover" id="table-blankt_custom_option">
+		const html = `<table class="table table-bordered table-hover" id="table-loosegallery_custom_option">
 		<thead>
 			<th>${Header1}</th>
 			<th>${Header2}</th>
@@ -243,33 +243,33 @@ $(document).ready(function () {
 		return html
 	}
 
-	$(document).on('click', '.blankt_custom_option-delete', function () {
+	$(document).on('click', '.loosegallery_custom_option-delete', function () {
 		$(this).parents('tr').remove()
 
-		if (!$('#table-blankt_custom_option tbody tr').length) {
-			$('#table-blankt_custom_option').hide()
+		if (!$('#table-loosegallery_custom_option tbody tr').length) {
+			$('#table-loosegallery_custom_option').hide()
 		}
-	}).on('click', '#button-blankt-add-product-option', function () {
-		if (!$('#table-blankt_custom_option').length) {
-			$('#button-blankt-add-product-option').parent().before(createBlanktTemplate())
+	}).on('click', '#button-loosegallery-add-product-option', function () {
+		if (!$('#table-loosegallery_custom_option').length) {
+			$('#button-loosegallery-add-product-option').parent().before(createloosegalleryTemplate())
 		}
 
-		$('#table-blankt_custom_option').show()
+		$('#table-loosegallery_custom_option').show()
 		
 		let html1 = document.querySelector('#product .form-group select').outerHTML
-		html1 = html1.replace(/name="option/g, 'name="blankt_custom_option[' + quantityBoxId + ']')
-			.replace(/-option/g, '-blankt_custom_option' + quantityBoxId + '-')
-			.replace(/class="/g, ' class="blankt_custom_option_select ')
+		html1 = html1.replace(/name="option/g, 'name="loosegallery_custom_option[' + quantityBoxId + ']')
+			.replace(/-option/g, '-loosegallery_custom_option' + quantityBoxId + '-')
+			.replace(/class="/g, ' class="loosegallery_custom_option_select ')
 
 		let html2 = document.querySelector('#product #input-quantity').outerHTML
-		html2 = html2.replace(/name="quantity"/g, 'name="blankt_custom_option_quantity[' + quantityBoxId + ']"')
+		html2 = html2.replace(/name="quantity"/g, 'name="loosegallery_custom_option_quantity[' + quantityBoxId + ']"')
 		html2 = html2.replace(/input-quantity/g, 'input-quantity-' + quantityBoxId)
 		$('.product-action').css('position', 'relative')
 
-		$('#table-blankt_custom_option tbody').append(`<tr data-index="${quantityBoxId}">
+		$('#table-loosegallery_custom_option tbody').append(`<tr data-index="${quantityBoxId}">
 			<td>${html1}</td>
 			<td style="width: 100px">${html2}</td>
-			<td><button class="btn btn-danger blankt_custom_option-delete"><i class="fa fa-trash-o"></i></button></td>
+			<td><button class="btn btn-danger loosegallery_custom_option-delete"><i class="fa fa-trash-o"></i></button></td>
 		</tr>`)
 		$('#input-quantity-' + quantityBoxId).attr('type', 'number')
 		$('#input-quantity-' + quantityBoxId).attr('min', $('#input-quantity-' + quantityBoxId).val())
@@ -278,64 +278,64 @@ $(document).ready(function () {
 	})
 })
 
-function blanktCopyrightNotice() {
-	if ($('#blankt_copyright_notice').length) {
-		if ($('#blankt_copyright_notice').is(':checked')) {
-			$('#blankt-checkout').removeAttr('disabled')
+function loosegalleryCopyrightNotice() {
+	if ($('#loosegallery_copyright_notice').length) {
+		if ($('#loosegallery_copyright_notice').is(':checked')) {
+			$('#loosegallery-checkout').removeAttr('disabled')
 		} else {
-			$('#blankt-checkout').attr('disabled', 'disabled')
+			$('#loosegallery-checkout').attr('disabled', 'disabled')
 		}
 	} else {
-		if ($('#blankt-checkout').length) {
-			$('#blankt-checkout').removeAttr('disabled')
+		if ($('#loosegallery-checkout').length) {
+			$('#loosegallery-checkout').removeAttr('disabled')
 		}
 	}
 }
-$(document).on('change', '#blankt_copyright_notice', function () {
-	blanktCopyrightNotice()
-}).on('click', '.swal-blankt-confirm-button', function () {
-	const blankt_product_serial = $(this).data('blankt_product_serial')
+$(document).on('change', '#loosegallery_copyright_notice', function () {
+	loosegalleryCopyrightNotice()
+}).on('click', '.swal-loosegallery-confirm-button', function () {
+	const loosegallery_product_serial = $(this).data('loosegallery_product_serial')
 	const cart_key = $(this).data('cart_key')
 
-	if (!$('.blankt_custom_option_select').length && blankt_product_serial) {
+	if (!$('.loosegallery_custom_option_select').length && loosegallery_product_serial) {
 		swal({
-			title: $('#blankt-cart-messages').data('title'),
-			text: $('#blankt-cart-messages').data('text'),
+			title: $('#loosegallery-cart-messages').data('title'),
+			text: $('#loosegallery-cart-messages').data('text'),
 			icon: "warning",
 			buttons: true,
 			dangerMode: true,
 		})
 			.then((willDelete) => {
 				if (willDelete) {					
-					blanktDeleteAllBlanktSerialProducts(blankt_product_serial)
+					loosegalleryDeleteAllloosegallerySerialProducts(loosegallery_product_serial)
 				}
 			});
 	} else {
-		blanktAddToCart(cart_key, blankt_product_serial)
+		loosegalleryAddToCart(cart_key, loosegallery_product_serial)
 	}
 
-}).on('click', '.blankt_modal_close_icon', function () {
+}).on('click', '.loosegallery_modal_close_icon', function () {
 	swal.close()
-}).on('click', '[data-has_blankt_image="1"]', function (e) {
+}).on('click', '[data-has_loosegallery_image="1"]', function (e) {
 	e.preventDefault()	
 	const src = $(this).data('src')
-	$('#myBlanktImage').modal('show')
-	$('#myBlanktImage').find('img').attr('src', src)
+	$('#myloosegalleryImage').modal('show')
+	$('#myloosegalleryImage').find('img').attr('src', src)
 })
 
-function blanktDeleteAllBlanktSerialProducts(productSerial) {
+function loosegalleryDeleteAllloosegallerySerialProducts(productSerial) {
 	$.ajax({
-		url: 'index.php?route=checkout/cart/removeAllBlankt',
+		url: 'index.php?route=checkout/cart/removeAllloosegallery',
 		type: 'post',
 		data: {
 			productSerial: productSerial
 		},
 		dataType: 'json',
 		beforeSend: function () {
-			$('.swal-blankt-confirm-button').button('loading');
+			$('.swal-loosegallery-confirm-button').button('loading');
 		},
 		complete: function () {
-			$('.swal-blankt-confirm-button').button('reset');
+			$('.swal-loosegallery-confirm-button').button('reset');
 		},
 		success: function (json) {
 			try {
@@ -351,7 +351,7 @@ function blanktDeleteAllBlanktSerialProducts(productSerial) {
 	});
 }
 
-function blanktAddToCart(cart_key, blankt_product_serial) {
+function loosegalleryAddToCart(cart_key, loosegallery_product_serial) {
 	let valid = true
 	$('.swal-modal select').each(function () {
 		if (!this.value && $(this).attr('id').indexOf('input-option') === -1) {
@@ -369,19 +369,19 @@ function blanktAddToCart(cart_key, blankt_product_serial) {
 	if ($('[name="cart_key_delete"]').length) {
 		$('[name="cart_key_delete"]').remove()
 	}
-	$('#product').append('<input type="hidden" name="productSerial" value="' + blankt_product_serial + '" />');
+	$('#product').append('<input type="hidden" name="productSerial" value="' + loosegallery_product_serial + '" />');
 	$('#product').append('<input type="hidden" name="cart_key_delete" value="' + cart_key + '" />');
 
 	$.ajax({
 		url: 'index.php?route=checkout/cart/add',
 		type: 'post',
-		data: $('#product input[type=\'number\'], #product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea, #table-blankt_custom_option select'),
+		data: $('#product input[type=\'number\'], #product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea, #table-loosegallery_custom_option select'),
 		dataType: 'json',
 		beforeSend: function () {
-			$('.swal-blankt-confirm-button').button('loading');
+			$('.swal-loosegallery-confirm-button').button('loading');
 		},
 		complete: function () {
-			$('.swal-blankt-confirm-button').button('reset');
+			$('.swal-loosegallery-confirm-button').button('reset');
 		},
 		success: function (json) {
 			try {
@@ -425,13 +425,13 @@ function blanktAddToCart(cart_key, blankt_product_serial) {
 					$('#cart > ul').load('index.php?route=common/cart/info ul li');
 
 					// for default theme
-					if ($('link[href$="default/stylesheet/ces/blankt.css"]').length) {
+					if ($('link[href$="default/stylesheet/ces/loosegallery.css"]').length) {
 						$('#cart-total').text($('#cart-total').text())
 					} else {
 						$('#cart-total').text(parseInt($('#cart-total').text()))
 					}
 
-					blanktCopyrightNotice()
+					loosegalleryCopyrightNotice()
 				}
 			} catch (error) {
 				swal.fire({

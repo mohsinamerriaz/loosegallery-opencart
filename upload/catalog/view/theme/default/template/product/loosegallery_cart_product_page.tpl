@@ -1,11 +1,11 @@
-<div id="product" class="blankt_product_modal_main">
-  <div class="blankt_modal_close_icon">x</div>
+<div id="product" class="loosegallery_product_modal_main">
+  <div class="loosegallery_modal_close_icon">x</div>
 
-  <div class="main-blankt-options-template hidden">
+  <div class="main-loosegallery-options-template hidden">
     <?php if ($options) { ?>
       <?php foreach ($options as $option) { ?>
 
-      <?php if($option['type'] == 'select' && !empty($blankt_product_status)) { ?>
+      <?php if($option['type'] == 'select' && !empty($loosegallery_product_status)) { ?>
       <?php } elseif ($option['type'] == 'select') { ?>
 
         <div class="form-group text-left <?php echo ($option['required'] ? ' required' : ''); ?>">
@@ -147,8 +147,8 @@
 
 
   <div class="text-right">
-    <?php echo empty($blankt_add_product_option_html) ? '' : $blankt_add_product_option_html;  ?>
+    <?php echo empty($loosegallery_add_product_option_html) ? '' : $loosegallery_add_product_option_html;  ?>
 
-    <button class="swal-blankt-confirm-button swal-button swal-button--confirm blankt_bg_blue"><?php echo $text_update_button_cart; ?></button>
+    <button class="swal-loosegallery-confirm-button swal-button swal-button--confirm loosegallery_bg_blue"><?php echo $text_update_button_cart; ?></button>
   </div>
 </div>

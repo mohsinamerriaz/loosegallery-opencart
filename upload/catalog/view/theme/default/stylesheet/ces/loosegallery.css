@@ -1,8 +1,8 @@
-img[src*="catalog/blankt/logo.png"] {
+img[src*="catalog/loosegallery/logo.png"] {
     background-color: #000;
 }
 
-.swal-modal.blankt_temp_terms_and_conditions_modal {
+.swal-modal.loosegallery_temp_terms_and_conditions_modal {
     text-align: left;
 }
 
@@ -10,29 +10,30 @@ img[src*="catalog/blankt/logo.png"] {
     cursor: pointer;
 }
 
-.blankt_terms_and_condtions.c-pointer {
+.loosegallery_terms_and_condtions.c-pointer {
     text-decoration: underline;
 }
 
-.blankt_bg_green {
+.loosegallery_bg_green {
     background-color: #42cf00;
 }
 
-#button-blankt, #button-blankt:active, #button-blankt:hover {
+#button-loosegallery, #button-loosegallery:active, #button-loosegallery:hover {
     background-color: #42cf00 !important;
     border-color: #42cf00 !important;
     box-shadow: none;
+    background-image: none;
 }
 
-.blankt_bg_blue {
+.loosegallery_bg_blue {
     background-color: #00A8EC;
 }
 
-.blankt_product_modal_main {
+.loosegallery_product_modal_main {
     padding-top: 20px;
 }
 
-.blankt_modal_close_icon {
+.loosegallery_modal_close_icon {
     cursor: pointer;
     position: absolute;
     top: 15px;
@@ -43,8 +44,8 @@ img[src*="catalog/blankt/logo.png"] {
     border: 1px solid lightgrey;
 }
 
-.button_blankt_edit_option_url,
-.button_blankt_edit_url {
+.button_loosegallery_edit_option_url,
+.button_loosegallery_edit_url {
     color: #fff;
     width: 102px;
     padding: 6px 8px;
@@ -56,15 +57,15 @@ img[src*="catalog/blankt/logo.png"] {
     white-space: nowrap;
 }
 
-.blankt_product_modal_main .btn-success:hover,
-.blankt_product_modal_main .btn-success:focus,
-.blankt_product_modal_main .btn-success:active,
-.blankt_product_modal_main .btn-success.active,
-.blankt_product_modal_main .open .dropdown-toggle.btn-success {
+.loosegallery_product_modal_main .btn-success:hover,
+.loosegallery_product_modal_main .btn-success:focus,
+.loosegallery_product_modal_main .btn-success:active,
+.loosegallery_product_modal_main .btn-success.active,
+.loosegallery_product_modal_main .open .dropdown-toggle.btn-success {
     background-color: #47a447 !important;
     border-color: #398439 !important;
 }
 
-#table-blankt_custom_option {
+#table-loosegallery_custom_option {
     margin-top: 5px;
 }

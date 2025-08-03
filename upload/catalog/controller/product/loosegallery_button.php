@@ -1,7 +1,7 @@
 <?php
 require_once DIR_APPLICATION . 'controller/product/mobile_detect.php';
 
-class ControllerProductBlanktButton extends Controller
+class ControllerProductloosegalleryButton extends Controller
 {
 	private $mobile_detect;
 	private $is_mobile;
@@ -10,7 +10,7 @@ class ControllerProductBlanktButton extends Controller
 
 	public function getImageByProductSerial(string $product_serial)
 	{
-		$sql = "SELECT image FROM `" . DB_PREFIX . "customer_product_blankt` WHERE product_serial = '" . $product_serial . "' LIMIT 1";
+		$sql = "SELECT image FROM `" . DB_PREFIX . "customer_product_loosegallery` WHERE product_serial = '" . $product_serial . "' LIMIT 1";
 
 		$row = $this->db->query($sql)->row;
 
@@ -34,14 +34,14 @@ class ControllerProductBlanktButton extends Controller
 			}
 		}
 
-		if (!empty($productSerial) && !empty($this->request->post['blankt_custom_option'])) {
+		if (!empty($productSerial) && !empty($this->request->post['loosegallery_custom_option'])) {
 			$this->request->post['option'] = [];
-			foreach ($this->request->post['blankt_custom_option'] as $key => $row) {
+			foreach ($this->request->post['loosegallery_custom_option'] as $key => $row) {
 				$option = [];
 				foreach ($row as $key_in => $value_in) {
 					$option[$key_in] = $value_in;
 				}
-				$this->request->post['quantity'] = !empty($this->request->post['blankt_custom_option_quantity'][$key]) ? (int) $this->request->post['blankt_custom_option_quantity'][$key] : 1;
+				$this->request->post['quantity'] = !empty($this->request->post['loosegallery_custom_option_quantity'][$key]) ? (int) $this->request->post['loosegallery_custom_option_quantity'][$key] : 1;
 				if (empty($this->request->post['quantity'])) {
 					$this->request->post['quantity'] = 1;
 				}
@@ -49,7 +49,7 @@ class ControllerProductBlanktButton extends Controller
 				$option[$option_id] = $productSerial;
 
 				$this->request->post['option'] = $option;
-				unset($this->request->post['blankt_custom_option'][$key]);
+				unset($this->request->post['loosegallery_custom_option'][$key]);
 				break;
 			}
 		}
@@ -99,18 +99,18 @@ class ControllerProductBlanktButton extends Controller
 
 		if (!$productSerial) return;
 
-		if (!empty($this->request->post['blankt_custom_option'])) {
+		if (!empty($this->request->post['loosegallery_custom_option'])) {
 
 			$option = $args['option'];
 			$recurring_id = $args['recurring_id'];
 			$product_id = $this->request->post['product_id'];
 
-			foreach ($this->request->post['blankt_custom_option'] as $index => $blankt_custom_option) {
+			foreach ($this->request->post['loosegallery_custom_option'] as $index => $loosegallery_custom_option) {
 				if (isset($option[$option_id])) {
-					$blankt_custom_option[$option_id] = (string) $option[$option_id];
-					$quantity = (int) $this->request->post['blankt_custom_option_quantity'][$index];
-					if ($quantity && isset($blankt_custom_option[$option_id])) {
-						$this->cart->add($product_id, $quantity, $blankt_custom_option, $recurring_id);
+					$loosegallery_custom_option[$option_id] = (string) $option[$option_id];
+					$quantity = (int) $this->request->post['loosegallery_custom_option_quantity'][$index];
+					if ($quantity && isset($loosegallery_custom_option[$option_id])) {
+						$this->cart->add($product_id, $quantity, $loosegallery_custom_option, $recurring_id);
 					}
 				}
 			}
@@ -127,18 +127,18 @@ class ControllerProductBlanktButton extends Controller
 		$original = $image = '';
 
 		foreach ($product['option'] as $option) {
-			$blank_product_option_id = $this->config->get('blankt_product_option_id') ? $this->config->get('blankt_product_option_id') : false;
+			$blank_product_option_id = $this->config->get('loosegallery_product_option_id') ? $this->config->get('loosegallery_product_option_id') : false;
 
 			if ($option['option_id'] == $blank_product_option_id && $option['value']) {
-				$blankt_product_serial = $option['value'];
+				$loosegallery_product_serial = $option['value'];
 
-				if ($this->getImageByProductSerial($blankt_product_serial)) {
-					if (file_exists(DIR_IMAGE . 'catalog/blankt/' . $blankt_product_serial . $this->image_extension)) {
-						$image = $this->model_tool_image->resize('catalog/blankt/' . $blankt_product_serial . $this->image_extension, $this->config->get('config_image_cart_width'), $this->config->get('config_image_cart_height'));
-						$original = HTTPS_SERVER . 'image/catalog/blankt/' . $blankt_product_serial . $this->image_extension;
+				if ($this->getImageByProductSerial($loosegallery_product_serial)) {
+					if (file_exists(DIR_IMAGE . 'catalog/loosegallery/' . $loosegallery_product_serial . $this->image_extension)) {
+						$image = $this->model_tool_image->resize('catalog/loosegallery/' . $loosegallery_product_serial . $this->image_extension, $this->config->get('config_image_cart_width'), $this->config->get('config_image_cart_height'));
+						$original = HTTPS_SERVER . 'image/catalog/loosegallery/' . $loosegallery_product_serial . $this->image_extension;
 					} else {
-						$image = HTTPS_SERVER . 'image/catalog/blankt/logo.png';
-						$original = HTTPS_SERVER . 'image/catalog/blankt/logo.png';
+						$image = HTTPS_SERVER . 'image/catalog/loosegallery/logo.png';
+						$original = HTTPS_SERVER . 'image/catalog/loosegallery/logo.png';
 					}
 				}
 
@@ -156,17 +156,17 @@ class ControllerProductBlanktButton extends Controller
 	{
 		if (self::$DEBUG) {
 			echo '<pre>';
-			print_r(DIR_IMAGE . 'catalog/blankt/logo.png');
+			print_r(DIR_IMAGE . 'catalog/loosegallery/logo.png');
 		}
 		$this->load->model('catalog/product');
 		$this->load->model('extension/extension');
 
-		if (!empty($this->session->data['blankt_cart_update_key']) && !empty($this->request->get['productSerial'])) {
+		if (!empty($this->session->data['loosegallery_cart_update_key']) && !empty($this->request->get['productSerial'])) {
 
 			foreach ($this->session->data['cart'] as $cart_old_key => $q) {
 				$product = unserialize(base64_decode($cart_old_key));
 				foreach ($product['option'] as $option_key => $option_value) {
-					if ($option_value == $this->session->data['blankt_cart_update_productSerial']) {
+					if ($option_value == $this->session->data['loosegallery_cart_update_productSerial']) {
 						$product['option'][$option_key] = $this->request->get['productSerial'];
 						$cart_new_key = base64_encode(serialize($product));
 						$cart_old_value = $this->session->data['cart'][$cart_old_key];
@@ -180,15 +180,15 @@ class ControllerProductBlanktButton extends Controller
 							$main_response = $this->getProductRequest($this->request->get['productSerial']);
 							$save_image = $main_response['data']['getProduct']['imageUrl'];
 							$this->copyImagesToCurrentWebsite($this->request->get['productSerial'], $save_image);
-							if (file_exists(DIR_IMAGE . 'catalog/blankt/' . $this->request->get['productSerial'] . $this->image_extension)) {
-								$this->updateBlanktImageToOpencart($this->request->get['productSerial'], 'catalog/blankt/' . $this->request->get['productSerial'] . $this->image_extension);
+							if (file_exists(DIR_IMAGE . 'catalog/loosegallery/' . $this->request->get['productSerial'] . $this->image_extension)) {
+								$this->updateloosegalleryImageToOpencart($this->request->get['productSerial'], 'catalog/loosegallery/' . $this->request->get['productSerial'] . $this->image_extension);
 							}
 						}
 					}
 				}
 			}
 
-			$cart_key = $this->session->data['blankt_cart_update_key'];
+			$cart_key = $this->session->data['loosegallery_cart_update_key'];
 		}
 
 		if (!empty($this->request->get['productSerial'])) {
@@ -198,24 +198,24 @@ class ControllerProductBlanktButton extends Controller
 		}
 
 		// .png", ".jpg", ".jpeg", ".pdf
-		if (empty($this->session->data['blankt_redirect_product'])) {
+		if (empty($this->session->data['loosegallery_redirect_product'])) {
 			return;
 		}
 
-		$this->request->post = json_decode($this->session->data['blankt_redirect_product'], true);
+		$this->request->post = json_decode($this->session->data['loosegallery_redirect_product'], true);
 
 		if (!empty($this->request->post['option'])) {
 			$all_product_options = $this->model_catalog_product->getProductOptions($this->request->post['product_id']);
-			$blankt_product_option_id_for_product = 0;
+			$loosegallery_product_option_id_for_product = 0;
 
 			foreach ($all_product_options as $key => $value) {
-				if ($value['option_id'] == $this->config->get('blankt_product_option_id')) {
-					$blankt_product_option_id_for_product = $value['product_option_id'];
+				if ($value['option_id'] == $this->config->get('loosegallery_product_option_id')) {
+					$loosegallery_product_option_id_for_product = $value['product_option_id'];
 				}
 			}
 
 			foreach ($this->request->post['option'] as $product_option_id => $value) {
-				if ($blankt_product_option_id_for_product == $product_option_id) {
+				if ($loosegallery_product_option_id_for_product == $product_option_id) {
 					$this->request->post['option'][$product_option_id] = $this->request->get['productSerial'];
 					break;
 				}
@@ -228,9 +228,9 @@ class ControllerProductBlanktButton extends Controller
 
 				$this->copyImagesToCurrentWebsite($save_image, $this->request->get['productSerial']);
 
-				$image_path = HTTPS_SERVER . 'image/catalog/blankt/logo.png';
-				if (file_exists(DIR_IMAGE . 'catalog/blankt/' . $this->request->get['productSerial'] . $this->image_extension)) {
-					$image_path = 'catalog/blankt/' . $this->request->get['productSerial'] . $this->image_extension;
+				$image_path = HTTPS_SERVER . 'image/catalog/loosegallery/logo.png';
+				if (file_exists(DIR_IMAGE . 'catalog/loosegallery/' . $this->request->get['productSerial'] . $this->image_extension)) {
+					$image_path = 'catalog/loosegallery/' . $this->request->get['productSerial'] . $this->image_extension;
 				}
 
 				$this->addCustomerDesignForProductInTable($this->getCustomerId(), $this->request->post['product_id'], $this->request->get['productSerial'], '', $image_path);
@@ -240,7 +240,7 @@ class ControllerProductBlanktButton extends Controller
 		}
 
 		// uncomment remove this
-		unset($this->session->data['blankt_redirect_product']);
+		unset($this->session->data['loosegallery_redirect_product']);
 
 		if (self::$DEBUG) {
 			echo '</pre>';
@@ -251,17 +251,17 @@ class ControllerProductBlanktButton extends Controller
 
 	private function copyImagesToCurrentWebsite(string $product_serial, string $image)
 	{
-		if ($image && !file_exists(DIR_IMAGE . 'catalog/blankt/' . $product_serial . $this->image_extension)) {
-			@copy($image, DIR_IMAGE . 'catalog/blankt/' . $product_serial . $this->image_extension);
+		if ($image && !file_exists(DIR_IMAGE . 'catalog/loosegallery/' . $product_serial . $this->image_extension)) {
+			@copy($image, DIR_IMAGE . 'catalog/loosegallery/' . $product_serial . $this->image_extension);
 
-			$this->updateBlanktImageToOpencart($this->request->get['productSerial'], 'catalog/blankt/' . $product_serial . $this->image_extension);
+			$this->updateloosegalleryImageToOpencart($this->request->get['productSerial'], 'catalog/loosegallery/' . $product_serial . $this->image_extension);
 		}
 
-		if (file_exists(DIR_IMAGE . 'catalog/blankt/' . $product_serial . $this->image_extension)) {
+		if (file_exists(DIR_IMAGE . 'catalog/loosegallery/' . $product_serial . $this->image_extension)) {
 			$this->load->model('tool/image');
-			$image = $this->model_tool_image->resize('catalog/blankt/' . $product_serial . $this->image_extension, $this->config->get('config_image_cart_width'), $this->config->get('config_image_cart_height'));
+			$image = $this->model_tool_image->resize('catalog/loosegallery/' . $product_serial . $this->image_extension, $this->config->get('config_image_cart_width'), $this->config->get('config_image_cart_height'));
 		} else {
-			$image = HTTPS_SERVER . 'image/catalog/blankt/logo.png';
+			$image = HTTPS_SERVER . 'image/catalog/loosegallery/logo.png';
 		}
 
 		return $image;
@@ -271,12 +271,12 @@ class ControllerProductBlanktButton extends Controller
 	{
 		if (!($customer_id && $product_serial)) return;
 
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_product_blankt` WHERE customer_id = '" . $customer_id . "', product_serial = '" . $product_serial . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_product_loosegallery` WHERE customer_id = '" . $customer_id . "', product_serial = '" . $product_serial . "'");
 	}
 
 
-	// removes cart page products with blankt product serial
-	public function removeAllBlanktSerialProductFromCart($args)
+	// removes cart page products with loosegallery product serial
+	public function removeAllloosegallerySerialProductFromCart($args)
 	{
 		$productSerial = $this->request->post['productSerial'];
 
@@ -302,11 +302,11 @@ class ControllerProductBlanktButton extends Controller
 		$this->deleteCustomerDesignForProductInTable($this->getCustomerId(), $productSerial);
 	}
 
-	private function updateBlanktImageToOpencart(string $product_serial, string $image)
+	private function updateloosegalleryImageToOpencart(string $product_serial, string $image)
 	{
 		if (!($image && $product_serial)) return;
 
-		$sql = "UPDATE `" . DB_PREFIX . "customer_product_blankt` SET image = '" . (string) $image . "' WHERE product_serial = '" . $product_serial . "'";
+		$sql = "UPDATE `" . DB_PREFIX . "customer_product_loosegallery` SET image = '" . (string) $image . "' WHERE product_serial = '" . $product_serial . "'";
 
 		$this->db->query($sql);
 	}
@@ -314,7 +314,7 @@ class ControllerProductBlanktButton extends Controller
 	private function addCustomerDesignForProductInTable(int $customer_id, int $product_id, string $product_serial, string $cart_key, string $image)
 	{
 		if (!($product_id && $product_serial)) return;
-		$sql = "REPLACE INTO `" . DB_PREFIX . "customer_product_blankt` SET customer_id = '" . $customer_id . "', product_id = '" . $product_id . "', product_serial = '" . $product_serial . "', cart_key = '" . $cart_key . "', image = '" . $image . "'";
+		$sql = "REPLACE INTO `" . DB_PREFIX . "customer_product_loosegallery` SET customer_id = '" . $customer_id . "', product_id = '" . $product_id . "', product_serial = '" . $product_serial . "', cart_key = '" . $cart_key . "', image = '" . $image . "'";
 		$this->db->query($sql);
 	}
 
@@ -322,7 +322,7 @@ class ControllerProductBlanktButton extends Controller
 	{
 		if (!($customer_id && $product_id)) return;
 
-		$row = $this->db->query("SELECT product_serial FROM `" . DB_PREFIX . "customer_product_blankt` WHERE customer_id = '" . $customer_id . "' AND product_id = '" . $product_id . "'")->row;
+		$row = $this->db->query("SELECT product_serial FROM `" . DB_PREFIX . "customer_product_loosegallery` WHERE customer_id = '" . $customer_id . "' AND product_id = '" . $product_id . "'")->row;
 
 		return empty($row) ? '' : $row['product_serial'];
 	}
@@ -331,16 +331,16 @@ class ControllerProductBlanktButton extends Controller
 	{
 		$products = $this->cart->getProducts();
 		$is_redirect = false;
-		if ($this->config->get('blankt_status')) {
+		if ($this->config->get('loosegallery_status')) {
 			foreach ($products as $product) {
-				if (in_array((int) $product['product_id'], $this->config->get('blankt_product_ids')) && (count($product['option']) == 1)) {
+				if (in_array((int) $product['product_id'], $this->config->get('loosegallery_product_ids')) && (count($product['option']) == 1)) {
 					$is_redirect = true;
 					break;
 				}
 			}
 
 			if ($is_redirect) {
-				$this->session->data['error'] = $this->load->language('product/blankt_button')['error_choose_size_format_to_continue'];
+				$this->session->data['error'] = $this->load->language('product/loosegallery_button')['error_choose_size_format_to_continue'];
 				$this->response->redirect($this->url->link('checkout/cart'));
 			}
 		}
@@ -348,60 +348,60 @@ class ControllerProductBlanktButton extends Controller
 
 	public function checkoutCartPage($data)
 	{
-		$this->load->language('product/blankt_button');
+		$this->load->language('product/loosegallery_button');
 		$data['data']['text_select_required_fields'] = $this->language->get('text_select_required_fields');
 		$data['data']['column_actions'] = $this->language->get('column_actions');
-		$data['data']['blankt_copyright_notice'] = $this->language->get('blankt_copyright_notice');
+		$data['data']['loosegallery_copyright_notice'] = $this->language->get('loosegallery_copyright_notice');
 		$data['data']['button_edit_your_design'] = $this->language->get('button_edit_your_design');
 		$data['data']['button_edit_your_design_option'] = $this->language->get('button_edit_your_design_option');
-		$data['data']['website_to_blankt_redirect_url'] = $this->config->get('blankt_website_to_blankt_redirect_url');
-		$data['data']['blank_product_option_id'] = $this->config->get('blankt_status') ? $this->config->get('blankt_product_option_id') : false;
-		$data['data']['blankt_terms_and_condtions'] = $this->config->get('blankt_status') && !empty($this->config->get('blankt_terms_and_condtions')) ? html_entity_decode($this->config->get('blankt_terms_and_condtions')) : '';
+		$data['data']['website_to_loosegallery_redirect_url'] = $this->config->get('loosegallery_website_to_loosegallery_redirect_url');
+		$data['data']['blank_product_option_id'] = $this->config->get('loosegallery_status') ? $this->config->get('loosegallery_product_option_id') : false;
+		$data['data']['loosegallery_terms_and_condtions'] = $this->config->get('loosegallery_status') && !empty($this->config->get('loosegallery_terms_and_condtions')) ? html_entity_decode($this->config->get('loosegallery_terms_and_condtions')) : '';
 		$data['data']['is_mobile'] = $this->isMobile();
 	}
 
 	public function productProductPage($data)
 	{
-		$this->load->language('product/blankt_button');
+		$this->load->language('product/loosegallery_button');
 		$data['data']['column_actions'] = $this->language->get('column_actions');
-		$data['data']['button_blankt_designer'] = $this->language->get('button_blankt_designer');
-		$data['data']['button_blankt_designer_add_to_cart'] = $this->language->get('button_blankt_designer_add_to_cart');
-		$data['data']['button_blankt_designer_add_to_cart_below'] = $this->language->get('button_blankt_designer_add_to_cart_below');
-		$data['data']['button_blankt_add_product_option'] = $this->language->get('button_blankt_add_product_option');
-		$data['data']['blank_product_option_id'] = $this->config->get('blankt_status') ? $this->config->get('blankt_product_option_id') : false;
-		$data['data']['blankt_product_status'] = $this->config->get('blankt_status') && in_array((int) $this->request->get['product_id'], $this->config->get('blankt_product_ids'));
-		$data['data']['website_to_blankt_redirect_url'] = $this->config->get('blankt_website_to_blankt_redirect_url');
-		$data['data']['blankt_designer_html'] = '';
+		$data['data']['button_loosegallery_designer'] = $this->language->get('button_loosegallery_designer');
+		$data['data']['button_loosegallery_designer_add_to_cart'] = $this->language->get('button_loosegallery_designer_add_to_cart');
+		$data['data']['button_loosegallery_designer_add_to_cart_below'] = $this->language->get('button_loosegallery_designer_add_to_cart_below');
+		$data['data']['button_loosegallery_add_product_option'] = $this->language->get('button_loosegallery_add_product_option');
+		$data['data']['blank_product_option_id'] = $this->config->get('loosegallery_status') ? $this->config->get('loosegallery_product_option_id') : false;
+		$data['data']['loosegallery_product_status'] = $this->config->get('loosegallery_status') && in_array((int) $this->request->get['product_id'], $this->config->get('loosegallery_product_ids'));
+		$data['data']['website_to_loosegallery_redirect_url'] = $this->config->get('loosegallery_website_to_loosegallery_redirect_url');
+		$data['data']['loosegallery_designer_html'] = '';
 
 		$productSerial = empty($this->request->get['productSerial']) ? '' : $this->request->get['productSerial'];
 		$data['data']['productSerial'] = empty($productSerial) ? '' : $productSerial;
 
-		$data['data']['button_blankt_designer_add_to_cart_below'] = '';
+		$data['data']['button_loosegallery_designer_add_to_cart_below'] = '';
 		// if productSerial is present it means it needs to be added to cart page
 		if ($productSerial) {
 			// caveat
-			$data['data']['blankt_product_status'] = false;
-			$data['data']['button_cart'] = $this->language->get('button_blankt_designer_add_to_cart');
-			$data['data']['button_blankt_designer_add_to_cart_below'] = $this->language->get('button_blankt_designer_add_to_cart_below');
+			$data['data']['loosegallery_product_status'] = false;
+			$data['data']['button_cart'] = $this->language->get('button_loosegallery_designer_add_to_cart');
+			$data['data']['button_loosegallery_designer_add_to_cart_below'] = $this->language->get('button_loosegallery_designer_add_to_cart_below');
 		}
 
-		if ($data['data']['blankt_product_status']) {
-			if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/product/blankt_button.tpl')) {
-				$data['data']['blankt_designer_html'] = $this->load->view($this->config->get('config_template') . '/template/product/blankt_button.tpl', $data['data']);
+		if ($data['data']['loosegallery_product_status']) {
+			if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/product/loosegallery_button.tpl')) {
+				$data['data']['loosegallery_designer_html'] = $this->load->view($this->config->get('config_template') . '/template/product/loosegallery_button.tpl', $data['data']);
 			} else {
-				$data['data']['blankt_designer_html'] = $this->load->view('default/template/product/blankt_button.tpl', $data['data']);
+				$data['data']['loosegallery_designer_html'] = $this->load->view('default/template/product/loosegallery_button.tpl', $data['data']);
 			}
 		} elseif ($productSerial) {
 			if ($this->getImageByProductSerial($productSerial)) {
-				if (file_exists(DIR_IMAGE . 'catalog/blankt/' . $productSerial . $this->image_extension)) {
-					$data['data']['thumb'] = $this->model_tool_image->resize('catalog/blankt/' . $productSerial . $this->image_extension, $this->config->get('config_image_thumb_width') - 130, $this->config->get('config_image_thumb_height'));
+				if (file_exists(DIR_IMAGE . 'catalog/loosegallery/' . $productSerial . $this->image_extension)) {
+					$data['data']['thumb'] = $this->model_tool_image->resize('catalog/loosegallery/' . $productSerial . $this->image_extension, $this->config->get('config_image_thumb_width') - 130, $this->config->get('config_image_thumb_height'));
 					// added -130 to fix image in product page
 				}
 
-				if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/product/blankt_add_product_option.tpl')) {
-					$data['data']['blankt_add_product_option_html'] = $this->load->view($this->config->get('config_template') . '/template/product/blankt_add_product_option.tpl', $data['data']);
+				if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/product/loosegallery_add_product_option.tpl')) {
+					$data['data']['loosegallery_add_product_option_html'] = $this->load->view($this->config->get('config_template') . '/template/product/loosegallery_add_product_option.tpl', $data['data']);
 				} else {
-					$data['data']['blankt_add_product_option_html'] = $this->load->view('default/template/product/blankt_add_product_option.tpl', $data['data']);
+					$data['data']['loosegallery_add_product_option_html'] = $this->load->view('default/template/product/loosegallery_add_product_option.tpl', $data['data']);
 				}
 			}
 		}
@@ -413,7 +413,7 @@ class ControllerProductBlanktButton extends Controller
 		$json = [];
 
 		$this->load->language('product/product');
-		$this->load->language('product/blankt_button');
+		$this->load->language('product/loosegallery_button');
 		$json = [
 			'success' => '',
 		];
@@ -452,7 +452,7 @@ class ControllerProductBlanktButton extends Controller
 			$data['text_loading'] = $this->language->get('text_loading');
 			$json['text_cancel'] = $this->language->get('text_cancel');
 			$json['text_update_button_cart'] = $this->language->get('text_update_button_cart');
-			$data['button_blankt_add_product_option'] = $this->language->get('button_blankt_add_product_option');
+			$data['button_loosegallery_add_product_option'] = $this->language->get('button_loosegallery_add_product_option');
 
 			$data['text_select'] = $this->language->get('text_select');
 			$data['text_manufacturer'] = $this->language->get('text_manufacturer');
@@ -531,12 +531,12 @@ class ControllerProductBlanktButton extends Controller
 
 		if ($productSerial) {
 
-			$json['blankt_add_product_option_html'] = '';
+			$json['loosegallery_add_product_option_html'] = '';
 			$data['text_update_button_cart'] = $this->language->get('text_update_button_cart');
-			if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/product/blankt_cart_product_page.tpl')) {
-				$json['blankt_cart_product_page_html'] = $this->load->view($this->config->get('config_template') . '/template/product/blankt_cart_product_page.tpl', $data);
+			if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/product/loosegallery_cart_product_page.tpl')) {
+				$json['loosegallery_cart_product_page_html'] = $this->load->view($this->config->get('config_template') . '/template/product/loosegallery_cart_product_page.tpl', $data);
 			} else {
-				$json['blankt_cart_product_page_html'] = $this->load->view('default/template/product/blankt_cart_product_page.tpl', $data);
+				$json['loosegallery_cart_product_page_html'] = $this->load->view('default/template/product/loosegallery_cart_product_page.tpl', $data);
 			}
 
 			$json['all_products'] = $data['all_products'];
@@ -548,18 +548,18 @@ class ControllerProductBlanktButton extends Controller
 
 	public function delete()
 	{
-		$this->load->language('product/blankt_button');
+		$this->load->language('product/loosegallery_button');
 
 		$json = [
 			'success' => false,
 		];
 
-		$this->session->data['blankt_cart_update_key'] = '';
-		$this->session->data['blankt_cart_update_productSerial'] = '';
-		$blankt_product_serial = empty($this->request->post['blankt_product_serial']) ? '' : $this->request->post['blankt_product_serial'];
+		$this->session->data['loosegallery_cart_update_key'] = '';
+		$this->session->data['loosegallery_cart_update_productSerial'] = '';
+		$loosegallery_product_serial = empty($this->request->post['loosegallery_product_serial']) ? '' : $this->request->post['loosegallery_product_serial'];
 
-		if ($blankt_product_serial) {
-			$this->deleteCustomerDesignForProductInTable($this->getCustomerId(), $blankt_product_serial);
+		if ($loosegallery_product_serial) {
+			$this->deleteCustomerDesignForProductInTable($this->getCustomerId(), $loosegallery_product_serial);
 			$json['success'] = true;
 		}
 
@@ -569,24 +569,24 @@ class ControllerProductBlanktButton extends Controller
 
 	public function edit()
 	{
-		$this->load->language('product/blankt_button');
+		$this->load->language('product/loosegallery_button');
 
 		$json = [
 			'redirect_url' => '',
 			'success' => '',
 		];
 
-		$this->session->data['blankt_cart_update_key'] = '';
-		$this->session->data['blankt_cart_update_productSerial'] = '';
+		$this->session->data['loosegallery_cart_update_key'] = '';
+		$this->session->data['loosegallery_cart_update_productSerial'] = '';
 		$cart_key = empty($this->request->post['cart_key']) ? '' : $this->request->post['cart_key'];
 		$productSerial = !empty($this->request->post['productSerial']) ? $this->request->post['productSerial'] : '';
 		$suffic_url = !empty($productSerial) ? '&p=' . $productSerial : '';
 
 		if ($cart_key) {
-			$this->session->data['blankt_cart_update_key'] = $cart_key;
-			$this->session->data['blankt_cart_update_productSerial'] = $productSerial;
-			$json['redirect_url'] = $this->config->get('blankt_website_to_blankt_redirect_url') . $suffic_url;
-			$json['success'] = $this->language->get('redirecting_to_blankt');
+			$this->session->data['loosegallery_cart_update_key'] = $cart_key;
+			$this->session->data['loosegallery_cart_update_productSerial'] = $productSerial;
+			$json['redirect_url'] = $this->config->get('loosegallery_website_to_loosegallery_redirect_url') . $suffic_url;
+			$json['success'] = $this->language->get('redirecting_to_loosegallery');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -596,19 +596,19 @@ class ControllerProductBlanktButton extends Controller
 	public function add()
 	{
 		$this->load->language('product/product');
-		$this->load->language('product/blankt_button');
+		$this->load->language('product/loosegallery_button');
 
 		$this->load->model('catalog/category');
 
 		$suffic_url = !empty($this->request->post['productSerial']) ? '&p=' . urlencode($this->request->post['productSerial']) : '';
 
-		$this->session->data['blankt_redirect_product'] = json_encode($this->request->post, true);
+		$this->session->data['loosegallery_redirect_product'] = json_encode($this->request->post, true);
 
 		$json = [];
 
 		$json = [
-			'redirect_url' => $this->config->get('blankt_website_to_blankt_redirect_url') . $suffic_url,
-			'success' => $this->language->get('redirecting_to_blankt'),
+			'redirect_url' => $this->config->get('loosegallery_website_to_loosegallery_redirect_url') . $suffic_url,
+			'success' => $this->language->get('redirecting_to_loosegallery'),
 		];
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -618,8 +618,8 @@ class ControllerProductBlanktButton extends Controller
 	private function createImageRequest(string $productSerial = '', $width = 6000, $height = 6000, $file_extension = '.png', $dpi = 300, $page = 0)
 	{
 
-		$url = 'https://api.blankt.com/graphql';
-		$apiKey = $this->config->get('blankt_api_key');
+		$url = 'https://api.loosegallery.com/graphql';
+		$apiKey = $this->config->get('loosegallery_api_key');
 
 		$data_json = '{"query": "mutation CreateImage { createImage(productSerial: \"' . $productSerial . '\", width: ' . $width . ', height: ' . $height . ', fileExtension: \"' . $file_extension . '\", dpi: ' . $dpi . ', page: ' . $page . ') }"}';
 
@@ -662,8 +662,8 @@ class ControllerProductBlanktButton extends Controller
 	private function getImageRequest(string $productSerial = '', $width = 6000, $height = 6000, $file_extension = '.png', $dpi = 300, $page = 0)
 	{
 
-		$url = 'https://api.blankt.com/graphql';
-		$apiKey = $this->config->get('blankt_api_key');
+		$url = 'https://api.loosegallery.com/graphql';
+		$apiKey = $this->config->get('loosegallery_api_key');
 
 		$data_json = '{"query": "query GetImage { getImage(productSerial: \"' . $productSerial . '\", width: ' . $width . ', height: ' . $height . ', fileExtension: \"' . $file_extension . '\", dpi: ' . $dpi . ', page: ' . $page . ') { imageUrl status createProgressPercentage } }"}';
 
@@ -709,8 +709,8 @@ class ControllerProductBlanktButton extends Controller
 	private function getProductRequest(string $productSerial = '')
 	{
 
-		$url = 'https://api.blankt.com/graphql';
-		$apiKey = $this->config->get('blankt_api_key');
+		$url = 'https://api.loosegallery.com/graphql';
+		$apiKey = $this->config->get('loosegallery_api_key');
 
 		$data_json = '{"query": "query getProduct { getProduct(productSerial: \"' . $productSerial . '\") { imageUrl } }"}';
 

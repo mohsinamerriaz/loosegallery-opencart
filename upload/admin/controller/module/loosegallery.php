@@ -1,18 +1,18 @@
 <?php
-class ControllerModuleBlankt extends Controller {
+class ControllerModuleloosegallery extends Controller {
 	private $error = array();
 	private $config_keys = array(
 		'status',
 		'api_key',
-		'blankt_to_website_redirect_url',
-		'website_to_blankt_redirect_url',
+		'loosegallery_to_website_redirect_url',
+		'website_to_loosegallery_redirect_url',
 		'product_option_id',
 		'product_ids',
 		'terms_and_condtions',
 	);
 	private $status = false;
-	private $blankt_to_website_redirect_url = '';
-	private $website_to_blankt_redirect_url = '';
+	private $loosegallery_to_website_redirect_url = '';
+	private $website_to_loosegallery_redirect_url = '';
 	private $api_key = '';
 	private $product_option_id = '';
 	private $product_ids = '[]';
@@ -25,11 +25,11 @@ class ControllerModuleBlankt extends Controller {
 		$data = [];
 		foreach ($this->config_keys as $key) {
 			if(isset($this->{$key})) {
-				$data['blankt_' . $key] = $this->$key;
+				$data['loosegallery_' . $key] = $this->$key;
 			}
 		}
 
-		$this->model_setting_setting->editSetting('blankt', $data);
+		$this->model_setting_setting->editSetting('loosegallery', $data);
 		$this->installTables();
 	}
 
@@ -41,10 +41,10 @@ class ControllerModuleBlankt extends Controller {
 
 		$this->load->model('catalog/option');
 		$this->load->model('localisation/language');
-		if ($this->config->get('blankt_product_option_id')) {
-			$option = $this->model_catalog_option->getOption($this->config->get('blankt_product_option_id'));
+		if ($this->config->get('loosegallery_product_option_id')) {
+			$option = $this->model_catalog_option->getOption($this->config->get('loosegallery_product_option_id'));
 			if(!empty($option)) {
-				return $this->config->get('blankt_product_option_id');
+				return $this->config->get('loosegallery_product_option_id');
 			}
 		}
 
@@ -81,11 +81,11 @@ class ControllerModuleBlankt extends Controller {
 		}
 	}
 
-	private function addProductOptionInProducts($products, $blankt_product_option_id) {
+	private function addProductOptionInProducts($products, $loosegallery_product_option_id) {
 		$product_options = [
 			[
 				'product_option_id' => '',
-				'option_id' => $blankt_product_option_id,
+				'option_id' => $loosegallery_product_option_id,
 				'type' => 'text',
 				'required' => '0',
 				'value' => '',
@@ -99,7 +99,7 @@ class ControllerModuleBlankt extends Controller {
 
 	public function index() {
 
-		$this->load->language('module/blankt');
+		$this->load->language('module/loosegallery');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
@@ -107,12 +107,12 @@ class ControllerModuleBlankt extends Controller {
 		$this->load->model('catalog/product');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			file_put_contents(DIR_APPLICATION . '../catalog/view/javascript/ces/blankt_products.js', 'window.blankt_products = ' . json_encode($this->config->get('blankt_product_ids'), true));
+			file_put_contents(DIR_APPLICATION . '../catalog/view/javascript/ces/loosegallery_products.js', 'window.loosegallery_products = ' . json_encode($this->config->get('loosegallery_product_ids'), true));
 
-			$this->request->post['blankt_product_option_id'] = $this->addProductOption();
-			$this->addProductOptionInProducts($this->request->post['blankt_product_ids'], $this->request->post['blankt_product_option_id']);
+			$this->request->post['loosegallery_product_option_id'] = $this->addProductOption();
+			$this->addProductOptionInProducts($this->request->post['loosegallery_product_ids'], $this->request->post['loosegallery_product_option_id']);
 
-			$this->model_setting_setting->editSetting('blankt', $this->request->post);
+			$this->model_setting_setting->editSetting('loosegallery', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -120,8 +120,8 @@ class ControllerModuleBlankt extends Controller {
 		}
 
 		$data['heading_title'] = $this->language->get('heading_title');
-		$data['help_blankt_terms_and_condtions'] = $this->language->get('help_blankt_terms_and_condtions');
-		$data['entry_blankt_terms_and_condtions'] = $this->language->get('entry_blankt_terms_and_condtions');
+		$data['help_loosegallery_terms_and_condtions'] = $this->language->get('help_loosegallery_terms_and_condtions');
+		$data['entry_loosegallery_terms_and_condtions'] = $this->language->get('entry_loosegallery_terms_and_condtions');
 
 		$data['text_edit'] = $this->language->get('text_edit');
 		$data['text_enabled'] = $this->language->get('text_enabled');
@@ -131,8 +131,8 @@ class ControllerModuleBlankt extends Controller {
 		$data['entry_api_key'] = $this->language->get('entry_api_key');
 		$data['entry_integration_url'] = $this->language->get('entry_integration_url');
 		$data['entry_product_ids'] = $this->language->get('entry_product_ids');
-		$data['entry_blankt_to_website_redirect_url'] = $this->language->get('entry_blankt_to_website_redirect_url');
-		$data['entry_website_to_blankt_redirect_url'] = $this->language->get('entry_website_to_blankt_redirect_url');
+		$data['entry_loosegallery_to_website_redirect_url'] = $this->language->get('entry_loosegallery_to_website_redirect_url');
+		$data['entry_website_to_loosegallery_redirect_url'] = $this->language->get('entry_website_to_loosegallery_redirect_url');
 
 		$data['help_product_ids'] = $this->language->get('help_product_ids');
 		$data['help_warning'] = $this->language->get('help_warning');
@@ -160,15 +160,15 @@ class ControllerModuleBlankt extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('module/blankt', 'token=' . $this->session->data['token'], 'SSL')
+			'href' => $this->url->link('module/loosegallery', 'token=' . $this->session->data['token'], 'SSL')
 		);
 
-		$data['action'] = $this->url->link('module/blankt', 'token=' . $this->session->data['token'], 'SSL');
+		$data['action'] = $this->url->link('module/loosegallery', 'token=' . $this->session->data['token'], 'SSL');
 
 		$data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
 
 		foreach ($this->config_keys as $key) {
-			$key = 'blankt_' . $key;
+			$key = 'loosegallery_' . $key;
 			if (isset($this->request->post[$key])) {
 				$data[$key] = $this->request->post[$key];
 			} else {
@@ -176,10 +176,10 @@ class ControllerModuleBlankt extends Controller {
 			}
 		}
 
-		if (isset($this->request->post['blankt_product_ids'])) {
-			$product_product_ids = $this->request->post['blankt_product_ids'];
-		} elseif (!empty($this->config->get('blankt_product_ids'))) {
-			$product_product_ids = $this->config->get('blankt_product_ids');
+		if (isset($this->request->post['loosegallery_product_ids'])) {
+			$product_product_ids = $this->request->post['loosegallery_product_ids'];
+		} elseif (!empty($this->config->get('loosegallery_product_ids'))) {
+			$product_product_ids = $this->config->get('loosegallery_product_ids');
 		} else {
 			$product_product_ids = array();
 		}
@@ -208,7 +208,7 @@ class ControllerModuleBlankt extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('module/blankt.tpl', $data));
+		$this->response->setOutput($this->load->view('module/loosegallery.tpl', $data));
 	}
 
 	private function isValidURL($url)
@@ -217,28 +217,28 @@ class ControllerModuleBlankt extends Controller {
 	}
 
 	protected function validate() {
-		if (!$this->user->hasPermission('modify', 'module/blankt')) {
+		if (!$this->user->hasPermission('modify', 'module/loosegallery')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		if (!$this->isValidURL($this->request->post['blankt_blankt_to_website_redirect_url'])) {
-			$this->error['error_blankt_blankt_to_website_redirect_url'] = $this->language->get('error_incorrect_blankt_to_website_redirect_url');
+		if (!$this->isValidURL($this->request->post['loosegallery_loosegallery_to_website_redirect_url'])) {
+			$this->error['error_loosegallery_loosegallery_to_website_redirect_url'] = $this->language->get('error_incorrect_loosegallery_to_website_redirect_url');
 		}
 
-		if (!$this->isValidURL($this->request->post['blankt_website_to_blankt_redirect_url'])) {
-			$this->error['error_blankt_website_to_blankt_redirect_url'] = $this->language->get('error_incorrect_website_to_blankt_redirect_url');
+		if (!$this->isValidURL($this->request->post['loosegallery_website_to_loosegallery_redirect_url'])) {
+			$this->error['error_loosegallery_website_to_loosegallery_redirect_url'] = $this->language->get('error_incorrect_website_to_loosegallery_redirect_url');
 		}
 
 		return !$this->error;
 	}
 
 	private function uninstallTables() {
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "customer_product_blankt`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "customer_product_loosegallery`");
 	}
 
 	private function installTables() {
 		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "customer_product_blankt` (
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "customer_product_loosegallery` (
 			  `customer_id` int(11) NOT NULL ,
 			  `product_id`  int(11) NOT NULL ,
 			  `product_serial`  varchar(200) NOT NULL ,

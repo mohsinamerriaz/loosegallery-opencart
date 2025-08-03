@@ -1,0 +1,1 @@
+window.loosegallery_products = ["28"]

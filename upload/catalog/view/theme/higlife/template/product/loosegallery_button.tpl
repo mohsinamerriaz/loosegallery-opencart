@@ -1,23 +1,23 @@
-<button type="button" id="button-blankt" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-success add-to-bag"><?php echo $button_blankt_designer; ?></button>
+<button type="button" id="button-loosegallery" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-success add-to-bag"><?php echo $button_loosegallery_designer; ?></button>
 
 <script type="text/javascript"><!--
 $(document).ready(function () {
-	if ($('#button-blankt').length) {
+	if ($('#button-loosegallery').length) {
 		$('[name="quantity"]').hide()
 		$('[for="input-quantity"]').hide()
 	}
 })
-$('#button-blankt').on('click', function() {
+$('#button-loosegallery').on('click', function() {
 	$.ajax({
-		url: 'index.php?route=product/blankt_button/add',
+		url: 'index.php?route=product/loosegallery_button/add',
 		type: 'post',
 		data: $('#product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
 		dataType: 'json',
 		beforeSend: function() {
-			$('#button-blankt').button('loading');
+			$('#button-loosegallery').button('loading');
 		},
 		complete: function() {
-			$('#button-blankt').button('reset');
+			$('#button-loosegallery').button('reset');
 		},
 		success: function(json) {
 			$('.alert, .text-danger').remove();
