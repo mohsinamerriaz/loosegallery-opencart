@@ -11,7 +11,7 @@
         <![CDATA[<body]]>
       </search>
       <add position="after" offset="1">
-        <![CDATA[<span id="blankt-cart-messages" data-title="<?php echo $blankt_cart_title; ?>" data-text="<?php echo $blankt_cart_text; ?>"><span>]]>
+        <![CDATA[<span id="loosegallery-cart-messages" data-title="<?php echo $loosegallery_cart_title; ?>" data-text="<?php echo $loosegallery_cart_text; ?>"><span>]]>
       </add>
     </operation>
   </file>
@@ -23,9 +23,9 @@
       </search>
       <add position="before">
         <![CDATA[
-          $this->load->language('product/blankt_button');
-          $data['blankt_cart_title'] = $this->language->get('blankt_cart_title');
-          $data['blankt_cart_text'] = $this->language->get('blankt_cart_text');
+          $this->load->language('product/loosegallery_button');
+          $data['loosegallery_cart_title'] = $this->language->get('loosegallery_cart_title');
+          $data['loosegallery_cart_text'] = $this->language->get('loosegallery_cart_text');
         ]]>
       </add>
     </operation>
@@ -38,11 +38,11 @@
       </search>
       <add position="before">
         <![CDATA[
-          <div data-text_select_required_fields="<?php echo $text_select_required_fields; ?>" id="blankt_temp_terms_and_conditions" style="display: none !important; width: 0; height: 0: visibility: none">
-            <?php echo $blankt_terms_and_condtions; ?>
+          <div data-text_select_required_fields="<?php echo $text_select_required_fields; ?>" id="loosegallery_temp_terms_and_conditions" style="display: none !important; width: 0; height: 0: visibility: none">
+            <?php echo $loosegallery_terms_and_condtions; ?>
           </div>
           <!-- Modal -->
-          <div class="modal fade" id="myBlanktImage" tabindex="-1" role="dialog" aria-labelledby="myBlanktImageLabel">
+          <div class="modal fade" id="myloosegalleryImage" tabindex="-1" role="dialog" aria-labelledby="myloosegalleryImageLabel">
             <div class="modal-dialog" role="document">
                 <img />
               </div>
@@ -70,8 +70,8 @@
           <?php if (!empty($is_mobile)) { ?>
             <tr>
               <td class="text-left" colspan="6">
-                <?php if(!empty($product['blankt_product_serial'])) { ?><button type="button" class="btn blankt_bg_green button_blankt_edit_option_url" data-cart_key="<?php echo $product['key']; ?>" data-blankt_product_serial="<?php echo $product['blankt_product_serial']; ?>"><?php echo $button_edit_your_design_option; ?><?php } ?></button>
-                <?php if(!empty($product['blankt_product_serial'])) { ?><button type="button" class="btn blankt_bg_blue button_blankt_edit_url" data-cart_key="<?php echo $product['key']; ?>" data-blankt_product_serial="<?php echo $product['blankt_product_serial']; ?>"><?php echo $button_edit_your_design; ?><?php } ?></button>
+                <?php if(!empty($product['loosegallery_product_serial'])) { ?><button type="button" class="btn loosegallery_bg_green button_loosegallery_edit_option_url" data-cart_key="<?php echo $product['key']; ?>" data-loosegallery_product_serial="<?php echo $product['loosegallery_product_serial']; ?>"><?php echo $button_edit_your_design_option; ?><?php } ?></button>
+                <?php if(!empty($product['loosegallery_product_serial'])) { ?><button type="button" class="btn loosegallery_bg_blue button_loosegallery_edit_url" data-cart_key="<?php echo $product['key']; ?>" data-loosegallery_product_serial="<?php echo $product['loosegallery_product_serial']; ?>"><?php echo $button_edit_your_design; ?><?php } ?></button>
               </td>
             </tr>
           <?php } ?>
@@ -86,8 +86,8 @@
         <![CDATA[
            <?php if (empty($is_mobile)) { ?>
             <td class="text-center">
-              <?php if(!empty($product['blankt_product_serial'])) { ?><button type="button" class="btn blankt_bg_green button_blankt_edit_option_url" data-cart_key="<?php echo $product['key']; ?>" data-blankt_product_serial="<?php echo $product['blankt_product_serial']; ?>"><?php echo $button_edit_your_design_option; ?><?php } ?></button>
-              <?php if(!empty($product['blankt_product_serial'])) { ?><button type="button" class="btn blankt_bg_blue button_blankt_edit_url" data-cart_key="<?php echo $product['key']; ?>" data-blankt_product_serial="<?php echo $product['blankt_product_serial']; ?>"><?php echo $button_edit_your_design; ?><?php } ?></button>
+              <?php if(!empty($product['loosegallery_product_serial'])) { ?><button type="button" class="btn loosegallery_bg_green button_loosegallery_edit_option_url" data-cart_key="<?php echo $product['key']; ?>" data-loosegallery_product_serial="<?php echo $product['loosegallery_product_serial']; ?>"><?php echo $button_edit_your_design_option; ?><?php } ?></button>
+              <?php if(!empty($product['loosegallery_product_serial'])) { ?><button type="button" class="btn loosegallery_bg_blue button_loosegallery_edit_url" data-cart_key="<?php echo $product['key']; ?>" data-loosegallery_product_serial="<?php echo $product['loosegallery_product_serial']; ?>"><?php echo $button_edit_your_design; ?><?php } ?></button>
             </td>
           <?php } ?>
         ]]>
@@ -98,7 +98,7 @@
         <![CDATA[<?php echo $product['href']; ?>"><img]]>
       </search>
       <add position="replace">
-        <![CDATA[<?php echo $product['href']; ?>" data-src="<?php echo (!empty($product['blankt_original_image_url']) ? $product['blankt_original_image_url'] : ''); ?>" data-has_blankt_image="<?php echo (!empty($product['blankt_image_url']) ? 1 : 0); ?>"><img]]>
+        <![CDATA[<?php echo $product['href']; ?>" data-src="<?php echo (!empty($product['loosegallery_original_image_url']) ? $product['loosegallery_original_image_url'] : ''); ?>" data-has_loosegallery_image="<?php echo (!empty($product['loosegallery_image_url']) ? 1 : 0); ?>"><img]]>
       </add>
     </operation>
     <operation>
@@ -106,7 +106,7 @@
         <![CDATA[<a href="<?php echo $checkout; ?>"]]>
       </search>
       <add position="replace">
-        <![CDATA[<a href="<?php echo $checkout; ?>" id="blankt-checkout" ]]>
+        <![CDATA[<a href="<?php echo $checkout; ?>" id="loosegallery-checkout" ]]>
       </add>
     </operation>
     <operation>
@@ -115,9 +115,9 @@
       </search>
       <add position="before">
         <![CDATA[
-        <?php if (!empty($hasMoreThanOneBlanktProduct)) { ?>
+        <?php if (!empty($hasMoreThanOneloosegalleryProduct)) { ?>
           <div class="text-right" style="margin-bottom: 10px">
-            <input type="checkbox" id="blankt_copyright_notice" style="vertical-align: top" /> <?php echo $blankt_copyright_notice; ?>
+            <input type="checkbox" id="loosegallery_copyright_notice" style="vertical-align: top" /> <?php echo $loosegallery_copyright_notice; ?>
           </div>
         <?php } ?>
       ]]>
@@ -130,7 +130,7 @@
         <![CDATA[id="button-cart"]]>
       </search>
       <add position="replace">
-        <![CDATA[id="button-cart" <?php if(!empty($blankt_product_status)) { ?>style="display: none"<?php } ?>]]>
+        <![CDATA[id="button-cart" <?php if(!empty($loosegallery_product_status)) { ?>style="display: none"<?php } ?>]]>
       </add>
     </operation>
     <operation>
@@ -139,10 +139,10 @@
       </search>
       <add position="after">
         <![CDATA[
-          <?php if(!empty($button_blankt_designer_add_to_cart_below)) { ?>
-          <div style="margin-top: 10px"><?php echo $button_blankt_designer_add_to_cart_below; ?></div>
+          <?php if(!empty($button_loosegallery_designer_add_to_cart_below)) { ?>
+          <div style="margin-top: 10px"><?php echo $button_loosegallery_designer_add_to_cart_below; ?></div>
           <?php } ?>
-          <?php echo !empty($blankt_designer_html) ? $blankt_designer_html : ''; ?>
+          <?php echo !empty($loosegallery_designer_html) ? $loosegallery_designer_html : ''; ?>
         ]]>
       </add>
     </operation>
@@ -164,7 +164,7 @@
       </search>
       <add position="after" offset="15">
         <![CDATA[
-            <?php echo empty($blankt_add_product_option_html) ? '' : $blankt_add_product_option_html;  ?>
+            <?php echo empty($loosegallery_add_product_option_html) ? '' : $loosegallery_add_product_option_html;  ?>
         ]]>
       </add>
     </operation>
@@ -174,7 +174,7 @@
       </search>
       <add position="replace">
         <![CDATA[
-            <?php if($option['type'] == 'select' && !empty($blankt_product_status)) { ?>
+            <?php if($option['type'] == 'select' && !empty($loosegallery_product_status)) { ?>
             <?php } elseif ($option['type'] == 'select') { ?>
         ]]>
       </add>
@@ -185,7 +185,7 @@
       </search>
       <add position="replace">
         <![CDATA[
-            <select <?php if(!empty($blankt_product_status)) { ?>disabled="disabled"<?php } ?> name="option
+            <select <?php if(!empty($loosegallery_product_status)) { ?>disabled="disabled"<?php } ?> name="option
         ]]>
       </add>
     </operation>
@@ -198,7 +198,7 @@
       </search>
       <add position="before">
         <![CDATA[
-          $this->load->controller('product/blankt_button/productProductPage', ['data' => &$data]);
+          $this->load->controller('product/loosegallery_button/productProductPage', ['data' => &$data]);
           if($data['blank_product_option_id'] == $option['option_id']) {
             $option['value'] = $data['productSerial'];
           }
@@ -211,7 +211,7 @@
       </search>
       <add position="before" offset="5">
         <![CDATA[
-          $this->load->controller('product/blankt_button/productProductPage', ['data' => &$data]);
+          $this->load->controller('product/loosegallery_button/productProductPage', ['data' => &$data]);
         ]]>
       </add>
     </operation>
@@ -224,10 +224,10 @@
       </search>
       <add position="before">
         <![CDATA[
-          $this->document->addScript('catalog/view/javascript/ces/blankt_products.js');
+          $this->document->addScript('catalog/view/javascript/ces/loosegallery_products.js');
           $this->document->addScript('catalog/view/javascript/ces/sweetalert.min.js');
-          $this->document->addScript('catalog/view/javascript/ces/blankt.js?ser=' . strtotime('now'));
-          $this->document->addStyle('catalog/view/theme/default/stylesheet/ces/blankt.css');
+          $this->document->addScript('catalog/view/javascript/ces/loosegallery.js?ser=' . strtotime('now'));
+          $this->document->addStyle('catalog/view/theme/default/stylesheet/ces/loosegallery.css');
         ]]>
       </add>
     </operation>
@@ -240,7 +240,7 @@
       </search>
       <add position="before">
         <![CDATA[
-          $this->load->controller('product/blankt_button/checkoutCheckoutPage', ['products' => &$products]);
+          $this->load->controller('product/loosegallery_button/checkoutCheckoutPage', ['products' => &$products]);
         ]]>
       </add>
     </operation>
@@ -253,8 +253,8 @@
       </search>
       <add position="before">
         <![CDATA[
-          $this->load->controller('product/blankt_button/checkoutCartPage', ['data' => &$data]);
-          $this->load->controller('product/blankt_button/redirectToProductPage');
+          $this->load->controller('product/loosegallery_button/checkoutCartPage', ['data' => &$data]);
+          $this->load->controller('product/loosegallery_button/redirectToProductPage');
         ]]>
       </add>
     </operation>
@@ -264,7 +264,7 @@
       </search>
       <add position="before">
         <![CDATA[
-          $image_array = $this->load->controller('product/blankt_button/getImageFromSession', $product);
+          $image_array = $this->load->controller('product/loosegallery_button/getImageFromSession', $product);
           $image = $image_array['small'];
           $original_image = $image_array['original'];
           if(!$image)
@@ -277,11 +277,11 @@
       </search>
       <add position="before">
         <![CDATA[
-          if($this->config->get('blankt_status') && !empty($this->request->get['product_id']) && in_array((int) $this->request->get['product_id'], $this->config->get('blankt_product_ids'))) {
-            $json['error']['warning'] = 'Blankt';
+          if($this->config->get('loosegallery_status') && !empty($this->request->get['product_id']) && in_array((int) $this->request->get['product_id'], $this->config->get('loosegallery_product_ids'))) {
+            $json['error']['warning'] = 'loosegallery';
           }
 
-          $this->load->controller('product/blankt_button/removeFromCartFromCartPage', ['json' => &$json, 'option' => $option, 'recurring_id' => $recurring_id]);
+          $this->load->controller('product/loosegallery_button/removeFromCartFromCartPage', ['json' => &$json, 'option' => $option, 'recurring_id' => $recurring_id]);
         ]]>
       </add>
     </operation>
@@ -291,8 +291,8 @@
       </search>
       <add position="after">
         <![CDATA[
-          $this->load->controller('product/blankt_button/removeFromCartFromCartPage', ['json' => &$json, 'option' => $option, 'recurring_id' => $recurring_id]);
-          $this->load->controller('product/blankt_button/addToCartFromCartPage', ['json' => &$json, 'option' => $option, 'recurring_id' => $recurring_id]);
+          $this->load->controller('product/loosegallery_button/removeFromCartFromCartPage', ['json' => &$json, 'option' => $option, 'recurring_id' => $recurring_id]);
+          $this->load->controller('product/loosegallery_button/addToCartFromCartPage', ['json' => &$json, 'option' => $option, 'recurring_id' => $recurring_id]);
         ]]>
       </add>
     </operation>
@@ -302,30 +302,30 @@
       </search>
       <add position="replace">
         <![CDATA[
-          $blankt_edit_url = '';
-          $blankt_product_serial = '';
+          $loosegallery_edit_url = '';
+          $loosegallery_product_serial = '';
 
-          if($this->config->get('blankt_status')) {
+          if($this->config->get('loosegallery_status')) {
             foreach ($product['option'] as $option) {
-              $blank_product_option_id = $this->config->get('blankt_product_option_id') ? $this->config->get('blankt_product_option_id') : false;
+              $blank_product_option_id = $this->config->get('loosegallery_product_option_id') ? $this->config->get('loosegallery_product_option_id') : false;
 
               if($option['option_id'] == $blank_product_option_id && $option['value']) {
-                $blankt_edit_url = $this->config->get('blankt_website_to_blankt_redirect_url') . '&p=' . $option['value'];
-                $blankt_product_serial = $option['value'];
+                $loosegallery_edit_url = $this->config->get('loosegallery_website_to_loosegallery_redirect_url') . '&p=' . $option['value'];
+                $loosegallery_product_serial = $option['value'];
                 break;
               }
             }
           }
 
-          if ($blankt_product_serial) {
-            $data['hasMoreThanOneBlanktProduct'] = true;
+          if ($loosegallery_product_serial) {
+            $data['hasMoreThanOneloosegalleryProduct'] = true;
           }
 
           $data['products'][] = array(
-            'blankt_edit_url'       => $blankt_edit_url,
-            'blankt_product_serial' => $blankt_product_serial,
-            'blankt_image_url'       => $blankt_product_serial ? $image : '',
-            'blankt_original_image_url' => $blankt_product_serial ? $original_image : '',
+            'loosegallery_edit_url'       => $loosegallery_edit_url,
+            'loosegallery_product_serial' => $loosegallery_product_serial,
+            'loosegallery_image_url'       => $loosegallery_product_serial ? $image : '',
+            'loosegallery_original_image_url' => $loosegallery_product_serial ? $original_image : '',
         ]]>
       </add>
     </operation>
@@ -345,7 +345,7 @@
       </search>
       <add position="before">
         <![CDATA[
-          $this->load->controller('product/blankt_button/setupCartAddPagePostValues', []);
+          $this->load->controller('product/loosegallery_button/setupCartAddPagePostValues', []);
         ]]>
       </add>
     </operation>
@@ -355,12 +355,12 @@
       </search>
       <add position="after">
         <![CDATA[
-          public function removeAllBlankt() {
+          public function removeAllloosegallery() {
             $this->load->language('checkout/cart');
 
             $json = array();
 
-            $this->load->controller('product/blankt_button/removeAllBlanktSerialProductFromCart', []);
+            $this->load->controller('product/loosegallery_button/removeAllloosegallerySerialProductFromCart', []);
 
             $this->response->addHeader('Content-Type: application/json');
             $this->response->setOutput(json_encode($json));
@@ -378,11 +378,11 @@
       </search>
       <add position="after">
         <![CDATA[
-          $this->load->language('product/blankt_button');
-          if($this->config->get('blankt_status') && !empty($this->request->get['product_id']) && in_array((int) $this->request->get['product_id'], $this->config->get('blankt_product_ids'))) {
-            $data['button_cart'] = $this->language->get('button_blankt_designer');
+          $this->load->language('product/loosegallery_button');
+          if($this->config->get('loosegallery_status') && !empty($this->request->get['product_id']) && in_array((int) $this->request->get['product_id'], $this->config->get('loosegallery_product_ids'))) {
+            $data['button_cart'] = $this->language->get('button_loosegallery_designer');
           }
-          $data['button_blankt_designer'] = $this->language->get('button_blankt_designer');
+          $data['button_loosegallery_designer'] = $this->language->get('button_loosegallery_designer');
         ]]>
       </add>
     </operation>
@@ -392,7 +392,7 @@
       </search>
       <add position="after">
         <![CDATA[
-          $image_array = $this->load->controller('product/blankt_button/getImageFromSession', $product);
+          $image_array = $this->load->controller('product/loosegallery_button/getImageFromSession', $product);
           $image = $image_array['small'];
           $original_image = $image_array['original'];
           if(!$image)
@@ -409,8 +409,8 @@
       </search>
       <add position="after">
       <![CDATA[
-        'blankt_product_text'         => $this->load->language('product/blankt_button')['button_blankt_designer'],
-        'blankt_product_status'       => $this->config->get('blankt_status') && in_array((int) $query->row['product_id'], $this->config->get('blankt_product_ids')) ? 1 : 0,
+        'loosegallery_product_text'         => $this->load->language('product/loosegallery_button')['button_loosegallery_designer'],
+        'loosegallery_product_status'       => $this->config->get('loosegallery_status') && in_array((int) $query->row['product_id'], $this->config->get('loosegallery_product_ids')) ? 1 : 0,
       ]]>
       </add>
     </operation>
@@ -423,8 +423,8 @@
     </search>
       <add position="after">
       <![CDATA[
-        'blankt_product_text'         => isset($product_info['blankt_product_text']) ? $product_info['blankt_product_text'] : (isset($result['blankt_product_text']) ? $result['blankt_product_text'] : ($this->load->language('product/blankt_button')['button_blankt_designer'])),
-        'blankt_product_status'       => isset($product_info['blankt_product_status']) ? $product_info['blankt_product_status'] : (isset($result['blankt_product_status']) ? $result['blankt_product_status'] : ($this->config->get('blankt_status') && isset($result['product_id']) && in_array((int) $result['product_id'], $this->config->get('blankt_product_ids')) ? 1 : 0)),
+        'loosegallery_product_text'         => isset($product_info['loosegallery_product_text']) ? $product_info['loosegallery_product_text'] : (isset($result['loosegallery_product_text']) ? $result['loosegallery_product_text'] : ($this->load->language('product/loosegallery_button')['button_loosegallery_designer'])),
+        'loosegallery_product_status'       => isset($product_info['loosegallery_product_status']) ? $product_info['loosegallery_product_status'] : (isset($result['loosegallery_product_status']) ? $result['loosegallery_product_status'] : ($this->config->get('loosegallery_status') && isset($result['product_id']) && in_array((int) $result['product_id'], $this->config->get('loosegallery_product_ids')) ? 1 : 0)),
       ]]>
     </add>
     </operation>
@@ -437,7 +437,7 @@
       </search>
       <add position="replace">
         <![CDATA[
-        <?php echo (empty($product['blankt_product_status']) ? $button_cart : $product['blankt_product_text']); ?>
+        <?php echo (empty($product['loosegallery_product_status']) ? $button_cart : $product['loosegallery_product_text']); ?>
         ]]>
       </add>
     </operation>
@@ -447,9 +447,9 @@
       </search>
       <add position="after" offset="4">
         <![CDATA[
-        <?php if (!empty($product['blankt_product_status']) && !empty($product['blankt_product_text'])) { ?>
+        <?php if (!empty($product['loosegallery_product_status']) && !empty($product['loosegallery_product_text'])) { ?>
             <div class="button-group button-group-additional">
-                <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>');" class="btn btn-primary btn-block button-blankt-product"><?php echo $product['blankt_product_text']; ?></button>
+                <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>');" class="btn btn-primary btn-block button-loosegallery-product"><?php echo $product['loosegallery_product_text']; ?></button>
             </div>
         <?php } ?>
         ]]>
@@ -463,8 +463,8 @@
     </search>
       <add position="before">
       <![CDATA[
-        'blankt_product_text'         => isset($product_info['blankt_product_text']) ? $product_info['blankt_product_text'] : (isset($result['blankt_product_text']) ? $result['blankt_product_text'] : ($this->load->language('product/blankt_button')['button_blankt_designer'])),
-        'blankt_product_status'       => isset($product_info['blankt_product_status']) ? $product_info['blankt_product_status'] : (isset($result['blankt_product_status']) ? $result['blankt_product_status'] : ($this->config->get('blankt_status') && isset($result['product_id']) && in_array((int) $result['product_id'], $this->config->get('blankt_product_ids')) ? 1 : 0)),
+        'loosegallery_product_text'         => isset($product_info['loosegallery_product_text']) ? $product_info['loosegallery_product_text'] : (isset($result['loosegallery_product_text']) ? $result['loosegallery_product_text'] : ($this->load->language('product/loosegallery_button')['button_loosegallery_designer'])),
+        'loosegallery_product_status'       => isset($product_info['loosegallery_product_status']) ? $product_info['loosegallery_product_status'] : (isset($result['loosegallery_product_status']) ? $result['loosegallery_product_status'] : ($this->config->get('loosegallery_status') && isset($result['product_id']) && in_array((int) $result['product_id'], $this->config->get('loosegallery_product_ids')) ? 1 : 0)),
       ]]>
     </add>
     </operation>
@@ -476,7 +476,7 @@
       </search>
       <add position="replace">
         <![CDATA[
-        <?php echo (empty($product['blankt_product_status']) ? $button_cart : $product['blankt_product_text']); ?>
+        <?php echo (empty($product['loosegallery_product_status']) ? $button_cart : $product['loosegallery_product_text']); ?>
         ]]>
       </add>
     </operation>
@@ -486,9 +486,9 @@
       </search>
       <add position="after" offset="4">
         <![CDATA[
-        <?php if (!empty($product['blankt_product_status']) && !empty($product['blankt_product_text'])) { ?>
+        <?php if (!empty($product['loosegallery_product_status']) && !empty($product['loosegallery_product_text'])) { ?>
             <div class="button-group button-group-additional">
-                <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>');" class="btn btn-primary btn-block button-blankt-product"><?php echo $product['blankt_product_text']; ?></button>
+                <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>');" class="btn btn-primary btn-block button-loosegallery-product"><?php echo $product['loosegallery_product_text']; ?></button>
             </div>
         <?php } ?>
         ]]>
