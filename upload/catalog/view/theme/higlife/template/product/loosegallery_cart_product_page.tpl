@@ -83,7 +83,7 @@
       </div>
       <?php } ?>
 
-      <?php if ($option['type'] == 'text' && $option['option_id'] == $blank_product_option_id && !$option['required']) { ?>
+      <?php if ($option['type'] == 'text' && $option['option_id'] == $loosegallery_product_option_id && !$option['required']) { ?>
         <input type="hidden" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option['value']; ?>" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control" />
       <?php } elseif ($option['type'] == 'text') { ?>
 

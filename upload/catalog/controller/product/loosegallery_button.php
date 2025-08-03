@@ -127,9 +127,9 @@ class ControllerProductloosegalleryButton extends Controller
 		$original = $image = '';
 
 		foreach ($product['option'] as $option) {
-			$blank_product_option_id = $this->config->get('loosegallery_product_option_id') ? $this->config->get('loosegallery_product_option_id') : false;
+			$loosegallery_product_option_id = $this->config->get('loosegallery_product_option_id') ? $this->config->get('loosegallery_product_option_id') : false;
 
-			if ($option['option_id'] == $blank_product_option_id && $option['value']) {
+			if ($option['option_id'] == $loosegallery_product_option_id && $option['value']) {
 				$loosegallery_product_serial = $option['value'];
 
 				if ($this->getImageByProductSerial($loosegallery_product_serial)) {
@@ -355,7 +355,7 @@ class ControllerProductloosegalleryButton extends Controller
 		$data['data']['button_edit_your_design'] = $this->language->get('button_edit_your_design');
 		$data['data']['button_edit_your_design_option'] = $this->language->get('button_edit_your_design_option');
 		$data['data']['website_to_loosegallery_redirect_url'] = $this->config->get('loosegallery_website_to_loosegallery_redirect_url');
-		$data['data']['blank_product_option_id'] = $this->config->get('loosegallery_status') ? $this->config->get('loosegallery_product_option_id') : false;
+		$data['data']['loosegallery_product_option_id'] = $this->config->get('loosegallery_status') ? $this->config->get('loosegallery_product_option_id') : false;
 		$data['data']['loosegallery_terms_and_condtions'] = $this->config->get('loosegallery_status') && !empty($this->config->get('loosegallery_terms_and_condtions')) ? html_entity_decode($this->config->get('loosegallery_terms_and_condtions')) : '';
 		$data['data']['is_mobile'] = $this->isMobile();
 	}
@@ -368,7 +368,7 @@ class ControllerProductloosegalleryButton extends Controller
 		$data['data']['button_loosegallery_designer_add_to_cart'] = $this->language->get('button_loosegallery_designer_add_to_cart');
 		$data['data']['button_loosegallery_designer_add_to_cart_below'] = $this->language->get('button_loosegallery_designer_add_to_cart_below');
 		$data['data']['button_loosegallery_add_product_option'] = $this->language->get('button_loosegallery_add_product_option');
-		$data['data']['blank_product_option_id'] = $this->config->get('loosegallery_status') ? $this->config->get('loosegallery_product_option_id') : false;
+		$data['data']['loosegallery_product_option_id'] = $this->config->get('loosegallery_status') ? $this->config->get('loosegallery_product_option_id') : false;
 		$data['data']['loosegallery_product_status'] = $this->config->get('loosegallery_status') && in_array((int) $this->request->get['product_id'], $this->config->get('loosegallery_product_ids'));
 		$data['data']['website_to_loosegallery_redirect_url'] = $this->config->get('loosegallery_website_to_loosegallery_redirect_url');
 		$data['data']['loosegallery_designer_html'] = '';
@@ -513,7 +513,7 @@ class ControllerProductloosegalleryButton extends Controller
 				}
 
 				$this->productProductPage(['data' => &$data]);
-				if ($data['blank_product_option_id'] == $option['option_id']) {
+				if ($data['loosegallery_product_option_id'] == $option['option_id']) {
 					$option['value'] = $data['productSerial'];
 				}
 

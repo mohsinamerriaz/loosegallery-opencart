@@ -152,7 +152,7 @@
       </search>
       <add position="replace">
         <![CDATA[
-            <?php if ($option['type'] == 'text' && $option['option_id'] == $blank_product_option_id && !$option['required']) { ?>
+            <?php if ($option['type'] == 'text' && $option['option_id'] == $loosegallery_product_option_id && !$option['required']) { ?>
               <input type="hidden" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option['value']; ?>" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control" />
             <?php } elseif ($option['type'] == 'text') { ?>
         ]]>
@@ -199,7 +199,7 @@
       <add position="before">
         <![CDATA[
           $this->load->controller('product/loosegallery_button/productProductPage', ['data' => &$data]);
-          if($data['blank_product_option_id'] == $option['option_id']) {
+          if($data['loosegallery_product_option_id'] == $option['option_id']) {
             $option['value'] = $data['productSerial'];
           }
         ]]>
@@ -307,9 +307,9 @@
 
           if($this->config->get('loosegallery_status')) {
             foreach ($product['option'] as $option) {
-              $blank_product_option_id = $this->config->get('loosegallery_product_option_id') ? $this->config->get('loosegallery_product_option_id') : false;
+              $loosegallery_product_option_id = $this->config->get('loosegallery_product_option_id') ? $this->config->get('loosegallery_product_option_id') : false;
 
-              if($option['option_id'] == $blank_product_option_id && $option['value']) {
+              if($option['option_id'] == $loosegallery_product_option_id && $option['value']) {
                 $loosegallery_edit_url = $this->config->get('loosegallery_website_to_loosegallery_redirect_url') . '&p=' . $option['value'];
                 $loosegallery_product_serial = $option['value'];
                 break;
