@@ -347,18 +347,26 @@ class ControllerProductloosegalleryButton extends Controller
 	}
 
 	public function checkoutCartPage($data)
-	{
-		$this->load->language('product/loosegallery_button');
-		$data['data']['text_select_required_fields'] = $this->language->get('text_select_required_fields');
-		$data['data']['column_actions'] = $this->language->get('column_actions');
-		$data['data']['loosegallery_copyright_notice'] = $this->language->get('loosegallery_copyright_notice');
-		$data['data']['button_edit_your_design'] = $this->language->get('button_edit_your_design');
-		$data['data']['button_edit_your_design_option'] = $this->language->get('button_edit_your_design_option');
-		$data['data']['website_to_loosegallery_redirect_url'] = $this->config->get('loosegallery_website_to_loosegallery_redirect_url');
-		$data['data']['loosegallery_product_option_id'] = $this->config->get('loosegallery_status') ? $this->config->get('loosegallery_product_option_id') : false;
-		$data['data']['loosegallery_terms_and_condtions'] = $this->config->get('loosegallery_status') && !empty($this->config->get('loosegallery_terms_and_condtions')) ? html_entity_decode($this->config->get('loosegallery_terms_and_condtions')) : '';
-		$data['data']['is_mobile'] = $this->isMobile();
-	}
+{
+    $this->load->language('product/loosegallery_button');
+    $data['data']['text_select_required_fields'] = $this->language->get('text_select_required_fields');
+    $data['data']['column_actions'] = $this->language->get('column_actions');
+    $data['data']['loosegallery_copyright_notice'] = $this->language->get('loosegallery_copyright_notice');
+    $data['data']['button_edit_your_design'] = $this->language->get('button_edit_your_design');
+    $data['data']['button_edit_your_design_option'] = $this->language->get('button_edit_your_design_option');
+    $data['data']['website_to_loosegallery_redirect_url'] = $this->config->get('loosegallery_website_to_loosegallery_redirect_url');
+    $data['data']['loosegallery_product_option_id'] = $this->config->get('loosegallery_status') ? $this->config->get('loosegallery_product_option_id') : false;
+    $data['data']['loosegallery_terms_and_condtions'] = $this->config->get('loosegallery_status') && !empty($this->config->get('loosegallery_terms_and_condtions')) ? html_entity_decode($this->config->get('loosegallery_terms_and_condtions')) : '';
+    $data['data']['is_mobile'] = $this->isMobile();
+
+    if (!empty($this->cart->getProducts())) {
+        foreach ($this->cart->getProducts() as &$product) {
+            $thumbs = $this->getImageFromSession($product);
+            $product['loosegallery_thumb'] = $thumbs['small'];
+        }
+        $data['data']['products'] = $this->cart->getProducts();
+    }
+}
 
 	public function productProductPage($data)
 	{
