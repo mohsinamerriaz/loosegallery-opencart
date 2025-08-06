@@ -22,7 +22,6 @@ img[src*="catalog/loosegallery/logo.png"] {
     background-color: #42cf00 !important;
     border-color: #42cf00 !important;
     box-shadow: none;
-    background-image: none;
 }
 
 .loosegallery_bg_blue {
