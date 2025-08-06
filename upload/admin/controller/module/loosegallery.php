@@ -33,20 +33,10 @@ class ControllerModuleloosegallery extends Controller {
 		$this->installTables();
 	}
 
-	public function uninstall() {
+public function uninstall() {
     $this->uninstallTables();
-    $this->removeSerialOption();
     $this->removeSerialOptionFromProducts();
-}
-
-private function removeSerialOption() {
-    $this->load->model('catalog/option');
-    $query = $this->db->query("SELECT option_id FROM " . DB_PREFIX . "option_description WHERE name = 'Serial'");
-    if ($query->num_rows) {
-        foreach ($query->rows as $row) {
-            $this->model_catalog_option->deleteOption($row['option_id']);
-        }
-    }
+    $this->removeSerialOption();
 }
 
 private function removeSerialOptionFromProducts() {
@@ -55,6 +45,16 @@ private function removeSerialOptionFromProducts() {
         foreach ($query->rows as $row) {
             $this->db->query("DELETE FROM " . DB_PREFIX . "product_option WHERE option_id = '" . (int)$row['option_id'] . "'");
             $this->db->query("DELETE FROM " . DB_PREFIX . "product_option_value WHERE option_id = '" . (int)$row['option_id'] . "'");
+        }
+    }
+}
+
+private function removeSerialOption() {
+    $this->load->model('catalog/option');
+    $query = $this->db->query("SELECT option_id FROM " . DB_PREFIX . "option_description WHERE name = 'Serial'");
+    if ($query->num_rows) {
+        foreach ($query->rows as $row) {
+            $this->model_catalog_option->deleteOption($row['option_id']);
         }
     }
 }
