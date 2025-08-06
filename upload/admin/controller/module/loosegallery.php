@@ -34,8 +34,19 @@ class ControllerModuleloosegallery extends Controller {
 	}
 
 	public function uninstall() {
-		$this->uninstallTables();
-	}
+    $this->uninstallTables();
+    $this->removeSerialOption();
+}
+
+private function removeSerialOption() {
+    $this->load->model('catalog/option');
+    $query = $this->db->query("SELECT option_id FROM " . DB_PREFIX . "option_description WHERE name = 'Serial'");
+    if ($query->num_rows) {
+        foreach ($query->rows as $row) {
+            $this->model_catalog_option->deleteOption($row['option_id']);
+        }
+    }
+}
 
 	private function addProductOption() {
 
