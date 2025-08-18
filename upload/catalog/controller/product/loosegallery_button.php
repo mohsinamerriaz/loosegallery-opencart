@@ -618,7 +618,7 @@ class ControllerProductloosegalleryButton extends Controller
 	private function createImageRequest(string $productSerial = '', $width = 6000, $height = 6000, $file_extension = '.png', $dpi = 300, $page = 0)
 	{
 
-		$url = 'https://api.blankt.com/graphql';
+		$url = 'https://api.loosegallery.com/graphql';
 		$apiKey = $this->config->get('loosegallery_api_key');
 
 		$data_json = '{"query": "mutation CreateImage { createImage(productSerial: \"' . $productSerial . '\", width: ' . $width . ', height: ' . $height . ', fileExtension: \"' . $file_extension . '\", dpi: ' . $dpi . ', page: ' . $page . ') }"}';
@@ -662,7 +662,7 @@ class ControllerProductloosegalleryButton extends Controller
 	private function getImageRequest(string $productSerial = '', $width = 6000, $height = 6000, $file_extension = '.png', $dpi = 300, $page = 0)
 	{
 
-		$url = 'https://api.blankt.com/graphql';
+		$url = 'https://api.loosegallery.com/graphql';
 		$apiKey = $this->config->get('loosegallery_api_key');
 
 		$data_json = '{"query": "query GetImage { getImage(productSerial: \"' . $productSerial . '\", width: ' . $width . ', height: ' . $height . ', fileExtension: \"' . $file_extension . '\", dpi: ' . $dpi . ', page: ' . $page . ') { imageUrl status createProgressPercentage } }"}';
@@ -709,7 +709,7 @@ class ControllerProductloosegalleryButton extends Controller
 	private function getProductRequest(string $productSerial = '')
 	{
 
-		$url = 'https://api.blankt.com/graphql';
+		$url = 'https://api.loosegallery.com/graphql';
 		$apiKey = $this->config->get('loosegallery_api_key');
 
 		$data_json = '{"query": "query getProduct { getProduct(productSerial: \"' . $productSerial . '\") { imageUrl } }"}';
